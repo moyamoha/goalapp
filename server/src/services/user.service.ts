@@ -16,15 +16,17 @@ export class UserService {
   ) {}
 
   async createUser(userObj): Promise<void> {
+    let newUser: UserDocument;
     try {
+      const newMockUser = new this.userModal(userObj);
+      await newMockUser.validate();
       const hashedPassoword = await bcrypt.hash(userObj.password, 10);
-      const newUser = new this.userModal({
+      newUser = new this.userModal({
         ...userObj,
         password: hashedPassoword,
       }) as UserDocument;
-      await newUser.save();
+      await newUser.save({ validateBeforeSave: false }); // Because already validated with newMockUser line 22
     } catch (e) {
-      console.log(e);
       throw new BadRequestException(e, e.message);
     }
   }
