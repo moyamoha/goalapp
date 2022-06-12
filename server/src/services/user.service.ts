@@ -25,7 +25,7 @@ export class UserService {
         ...userObj,
         password: hashedPassoword,
       }) as UserDocument;
-      await newUser.save({ validateBeforeSave: false }); // Because already validated with newMockUser line 22
+      await newUser.save({ validateBeforeSave: false }); // Because validated already in line 22
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }
@@ -34,7 +34,7 @@ export class UserService {
   async findOneByEmail(email: string): Promise<UserDocument | undefined> {
     const user = await this.userModal.findOne({ email: email });
     if (!user) {
-      throw new NotFoundException();
+      throw new NotFoundException('Specified user was not found');
     }
     return user;
   }
