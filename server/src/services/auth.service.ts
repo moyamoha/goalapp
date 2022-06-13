@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
@@ -11,12 +11,15 @@ export class AuthService {
     private userModal: Model<UserDocument>,
   ) {}
 
-  async login(
-    email: string,
-    password: string,
-  ): Promise<UserDocument | undefined> {
-    const user = await this.userModal.findOne({ email: email });
-    if (await bcrypt.compare(password, user.password)) return user;
-    else return undefined;
+  async login(email: string, password: string): Promise<UserDocument> {
+    try {
+      const user = await this.userModal.findOne({ email: email });
+      if (user && (await bcrypt.compare(password, user.password))) {
+        user.lastLoggedIn = new Date();
+        return await user.save({ validateBeforeSave: false });
+      }
+    } catch (e) {
+      new UnauthorizedException();
+    }
   }
 }

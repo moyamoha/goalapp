@@ -11,7 +11,6 @@ export class AuthController {
   @HttpCode(200)
   async login(@Req() req): Promise<{ access_token: string }> {
     const user = req.user;
-    console.log(user);
     const token = this.jwtService.sign(
       {
         firstname: user.firstname,

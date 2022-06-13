@@ -10,7 +10,7 @@ import { AuthModule } from './auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot('mongodb://localhost:27017/goalapp'),
+    MongooseModule.forRoot(process.env.MONGODB_URI_LOCAL),
     GoalModule,
     UserModule,
     AuthModule,
@@ -18,8 +18,4 @@ import { AuthModule } from './auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer.apply(passport.authenticate('jwt')).forRoutes('goals');
-  // }
-}
+export class AppModule {}

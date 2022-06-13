@@ -39,6 +39,10 @@ export class UserService {
     return user;
   }
 
+  async getAll(): Promise<UserDocument[]> {
+    return await this.userModal.find({});
+  }
+
   async deleteUser(id: string): Promise<void> {
     const user = await this.userModal.findByIdAndDelete(id);
     if (!user) {
