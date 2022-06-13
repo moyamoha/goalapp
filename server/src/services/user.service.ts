@@ -50,4 +50,18 @@ export class UserService {
     }
     return;
   }
+
+  async editProfile(user: UserDocument, profile: any): Promise<UserDocument> {
+    try {
+      const testPass = 'Ab1?Ab1?';
+      const mockUser = new this.userModal(user);
+      mockUser.password = testPass;
+      mockUser.profile = profile;
+      await mockUser.validate();
+      user.profile = profile;
+      return await user.save({ validateBeforeSave: false });
+    } catch (e) {
+      throw new BadRequestException(e, e.message);
+    }
+  }
 }

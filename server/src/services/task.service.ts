@@ -15,7 +15,7 @@ export class TasksService {
         Date.now() - Date.parse(user.lastLoggedIn.toISOString()) >=
           6 * 2629800000
       ) {
-        // If inactive for 2 months, delete user
+        // If inactive for 6 months, delete user
         this.userService.deleteUser(user._id);
       }
     }

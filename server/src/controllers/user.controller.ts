@@ -4,6 +4,7 @@ import {
   Delete,
   HttpCode,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -28,5 +29,15 @@ export class UserController {
   async deleteAccount(@Req() req) {
     const user = req.user as UserDocument;
     await this.userService.deleteUser(user._id);
+  }
+
+  @UseGuards(JwtAuthGaurd)
+  @Put('profile')
+  async editProfile(@Req() req, @Body() body) {
+    const profile = this.userService.editProfile(
+      req.user as UserDocument,
+      body,
+    );
+    return profile;
   }
 }
