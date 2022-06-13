@@ -15,17 +15,16 @@ export class UserService {
     private userModal: Model<UserDocument>,
   ) {}
 
-  async createUser(userObj): Promise<void> {
-    let newUser: UserDocument;
+  async createUser(userObj: Partial<UserDocument>): Promise<void> {
     try {
-      const newMockUser = new this.userModal(userObj);
-      await newMockUser.validate();
       const hashedPassoword = await bcrypt.hash(userObj.password, 10);
-      newUser = new this.userModal({
+      console.log(hashedPassoword);
+      const newUser = new this.userModal({
         ...userObj,
         password: hashedPassoword,
+        profile: userObj.profile ? userObj.profile : {},
       }) as UserDocument;
-      await newUser.save({ validateBeforeSave: false }); // Because validated already in line 22
+      await newUser.save();
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }
@@ -51,13 +50,11 @@ export class UserService {
     return;
   }
 
-  async editProfile(user: UserDocument, profile: any): Promise<UserDocument> {
+  async editProfile(
+    user: UserDocument,
+    profile: Partial<UserDocument['profile']>,
+  ): Promise<UserDocument> {
     try {
-      const testPass = 'Ab1?Ab1?';
-      const mockUser = new this.userModal(user);
-      mockUser.password = testPass;
-      mockUser.profile = profile;
-      await mockUser.validate();
       user.profile = profile;
       return await user.save({ validateBeforeSave: false });
     } catch (e) {

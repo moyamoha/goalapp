@@ -18,11 +18,11 @@ export class User {
     required: true,
     validate: {
       validator: (v) =>
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/.test(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-,.;:><]).{8,}$/.test(
           v,
         ),
       message:
-        'A password must have at least one lowercase letter, one uppercase letter, one digit and one special character. It should be 8-30 characters long',
+        'A password must have at least one lowercase letter, one uppercase letter, one digit and one special character. It should be at least 8 characters long',
     },
   })
   password: string;
@@ -57,6 +57,12 @@ export class User {
         required: false,
         default: 'dreamer',
         enum: ['dreamer', 'realistic'],
+      },
+      theme: {
+        type: String,
+        required: false,
+        default: 'system',
+        enum: ['system', 'light', 'dark'],
       },
     }),
   )
