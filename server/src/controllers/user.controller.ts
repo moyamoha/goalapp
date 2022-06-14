@@ -12,6 +12,7 @@ import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 
 import { UserDocument } from 'src/schemas/user.schema';
 import { UserService } from 'src/services/user.service';
+import { CustomRequest } from 'src/types/custom';
 
 @Controller('users')
 export class UserController {
@@ -19,25 +20,25 @@ export class UserController {
 
   @Post('')
   @HttpCode(201)
-  async registerUser(@Body() body): Promise<void> {
+  async registerUser(@Body() body: Partial<UserDocument>): Promise<void> {
     await this.userService.createUser(body);
   }
 
   @UseGuards(JwtAuthGaurd)
   @Delete('')
   @HttpCode(204)
-  async deleteAccount(@Req() req) {
-    const user = req.user as UserDocument;
+  async deleteAccount(@Req() req: CustomRequest) {
+    const user = req.user;
     await this.userService.deleteUser(user._id);
   }
 
   @UseGuards(JwtAuthGaurd)
   @Put('profile')
-  async editProfile(@Req() req, @Body() body) {
-    const profile = this.userService.editProfile(
-      req.user as UserDocument,
-      body,
-    );
+  async editProfile(
+    @Req() req: CustomRequest,
+    @Body() body: Partial<UserDocument['profile']>,
+  ) {
+    const profile = this.userService.editProfile(req.user, body);
     return profile;
   }
 }
