@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import Router from "next/router";
 import { IUserDoc, IProfile } from "../types";
 
@@ -21,11 +20,6 @@ const authSlice = createSlice({
 			state.user = action.payload;
 			state.authError = "";
 		},
-		setProfile: (state, action: PayloadAction<IProfile>) => {
-			if (state.user) {
-				state.user.profile = action.payload;
-			}
-		},
 		logout: (state) => {
 			state.user = null;
 			state.authError = "";
@@ -37,5 +31,5 @@ const authSlice = createSlice({
 	},
 });
 
-export const { setUser, setProfile, logout, setAuthError } = authSlice.actions;
+export const { setUser, logout, setAuthError } = authSlice.actions;
 export default authSlice.reducer;

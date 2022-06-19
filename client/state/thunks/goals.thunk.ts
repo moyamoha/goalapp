@@ -10,7 +10,6 @@ export const getAll = () => {
 		dispatch(setLoading(true));
 		try {
 			const response = await axios.get("/goals");
-			console.log(response.data);
 			dispatch(setGoals(response.data));
 		} catch (e) {
 			console.log(e);

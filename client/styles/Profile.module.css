@@ -1,0 +1,28 @@
+.profForm {
+  /* border: 1px solid black; */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 40%;
+  font-size: 1.05rem;
+}
+
+
+@media (max-width: 900px) {
+  .profForm {
+    width: 50%;
+  }
+}
+
+@media (max-width: 720px) {
+  .profForm {
+    width: 70%;
+  }
+}
+
+@media (max-width: 500px) {
+  .profForm {
+    width: 90%;
+  }
+}

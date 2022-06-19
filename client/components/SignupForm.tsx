@@ -39,7 +39,7 @@ export default function SignupForm() {
 				setValue={setEmail}
 				type="email"
 			></FormStrField>
-			<section style={twoFieldLine}>
+			<section className={globalStyles.formRow}>
 				<FormStrField
 					id="first"
 					label="Firstname"
@@ -65,7 +65,7 @@ export default function SignupForm() {
 				setValue={setDob}
 				type="date"
 			></FormStrField>
-			<section style={twoFieldLine}>
+			<section className={globalStyles.formRow}>
 				<PasswordField
 					id="pass1"
 					labelText="Password"
@@ -85,9 +85,3 @@ export default function SignupForm() {
 		</form>
 	);
 }
-
-const twoFieldLine = {
-	display: "flex",
-	gap: "15px",
-	justifyContent: "space-between",
-};

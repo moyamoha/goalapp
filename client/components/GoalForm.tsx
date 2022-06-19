@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAppDispatch } from "../state/hooks";
 import { createGoal, editGoal } from "../state/thunks/goals.thunk";
 import { IGoalDoc } from "../state/types";
@@ -19,8 +20,6 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 	});
 	const [reached, setReached] = useState(false);
 
-	console.log(goal?.targetDate);
-
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		const submitData = reached
@@ -39,6 +38,18 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 			dispatch(editGoal(goal._id, submitData));
 		}
 	};
+
+	const getOnlyDateIdeal = useCallback(() => {
+		const dateObj = new Date(formData.targetDate);
+		const days = dateObj
+			.getUTCDate()
+			.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+		const months = (dateObj.getUTCMonth() + 1).toLocaleString("en-US", {
+			minimumIntegerDigits: 2,
+			useGrouping: false,
+		});
+		return `${dateObj.getUTCFullYear()}-${months}-${days}`;
+	}, [formData.targetDate]);
 
 	return (
 		<form id={goalFormStyles.goalForm} onSubmit={handleSubmit}>
@@ -85,8 +96,7 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 					className={globalStyles.input}
 					id="ideal"
 					type="date"
-					value={formData.targetDate}
-					min={new Date().toLocaleDateString()}
+					value={getOnlyDateIdeal()}
 					onChange={(e) =>
 						setFormData({
 							...formData,
@@ -144,6 +154,9 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 			<button className={globalStyles.primaryBtn} type="submit">
 				Submit
 			</button>
+			<Link href={"/home"}>
+				<a className={globalStyles.link}>Back to home</a>
+			</Link>
 		</form>
 	);
 }

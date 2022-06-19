@@ -27,9 +27,14 @@ function Navbar() {
 				<a className={navStyles.navlink}>Create</a>
 			</Link>
 			{user ? (
-				<span className={navStyles.navlink} onClick={logoutUser}>
-					Log out
-				</span>
+				<>
+					<span className={navStyles.navlink} onClick={logoutUser}>
+						Log out
+					</span>
+					<Link href={"/profile"}>
+						<a className={navStyles.navlink}>Profile</a>
+					</Link>
+				</>
 			) : (
 				<>
 					<Link href={"/login"}>

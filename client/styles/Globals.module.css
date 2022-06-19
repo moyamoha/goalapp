@@ -6,6 +6,12 @@
   text-decoration: underline;
 }
 
+.formRow {
+  display: flex;
+	gap: 15px;
+	justify-content: space-between;
+}
+
 .input {
   padding: 9px 12px;
   border-radius: 7px;
@@ -28,6 +34,12 @@
   border: 1px solid darkkhaki;
 }
 
+.customSelect {
+  cursor: pointer;
+  background-color: white;
+  appearance: none;
+}
+
 .primaryBtn {
   padding: 8px 12px;
   border-radius: 7px;
@@ -37,10 +49,28 @@
   outline: none;
   border: 1px solid #026ee2;
   margin: 1rem 0;
+  cursor: pointer;
 }
 
 .primaryBtn:hover {
   color: #007bff;
+  background-color: white;
+}
+
+.dangerBtn {
+  padding: 8px 12px;
+  border-radius: 7px;
+  background-color: #dc3545;
+  font-size: 1.05rem;
+  color: white;
+  outline: none;
+  border: 1px solid #ae2a37;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+.dangerBtn:hover {
+  color: #dc3545;
   background-color: white;
 }
 

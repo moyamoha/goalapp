@@ -21,7 +21,6 @@ export class UserService {
       const mockUser = new this.userModal(userObj);
       await mockUser.validate();
       const hashedPassoword = await bcrypt.hash(userObj.password, 10);
-      console.log(hashedPassoword);
       const newUser = new this.userModal({
         ...userObj,
         password: hashedPassoword,
@@ -56,7 +55,7 @@ export class UserService {
   async editProfile(
     user: UserDocument,
     profile: Partial<UserDocument['profile']>,
-  ): Promise<UserDocument> {
+  ): Promise<UserDocument['profile']> {
     const testPass = 'Ab1!Ab1!';
     try {
       const mockUser = new this.userModal(user);
@@ -64,7 +63,10 @@ export class UserService {
       mockUser.password = testPass;
       await mockUser.validate();
       user.profile = { ...user.profile, ...profile };
-      return await user.save({ validateBeforeSave: false });
+      const userProfile = await (
+        await user.save({ validateBeforeSave: false })
+      ).profile;
+      return userProfile;
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }
