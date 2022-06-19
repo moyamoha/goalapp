@@ -1,0 +1,37 @@
+.authCont {
+  min-height: 100vh;
+  padding: 4rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  background-color: rgb(200, 224, 216);
+}
+
+.authModal{
+  background-color: white;
+  padding: 2rem 1rem;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  width: auto;
+  min-width: 400px;
+  height: auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+}
+
+@media (max-width: 900px) {
+
+  .authCont {
+    padding: 0.5rem;
+  }
+}
+

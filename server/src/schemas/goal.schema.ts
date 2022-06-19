@@ -31,7 +31,7 @@ export class Goal {
       celebrationText: String,
     }),
   )
-  reached: any;
+  reached?: any;
 
   @Prop()
   targetDate?: Date;

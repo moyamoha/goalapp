@@ -1,0 +1,22 @@
+.navbar {
+  background-color: rgb(45, 41, 41);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  gap: 10px;
+  color: rgb(216, 216, 216);
+}
+
+.navbar .navlink:nth-child(3) {
+  margin-left: auto;
+}
+
+.navlink {
+  cursor: pointer;
+}
+
+.navlink:hover {
+  color: white;
+  text-decoration: underline;
+}

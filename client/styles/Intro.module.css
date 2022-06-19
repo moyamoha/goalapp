@@ -1,0 +1,42 @@
+.introCont {
+  width: 30%;
+  font-size: 1.05rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+
+.introCont p {
+  margin-bottom: 2rem;
+}
+
+.introBtn {
+  padding: 0.8rem 1rem;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 1.05rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.introBtn:hover {
+  background-color: rgba(237, 237, 237, 0.87)
+}
+
+@media (max-width: 900px) {
+  .introCont {
+    width: 50%
+  }
+}
+
+@media (max-width: 700) {
+  .introCont {
+    width: 80%
+  }
+}
+
+@media (max-width: 500px) {
+  .introCont {
+    width: 100%;
+    padding: 10px;
+  }
+}

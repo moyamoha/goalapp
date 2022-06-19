@@ -5,11 +5,10 @@ import { UserService } from './user.service';
 @Injectable()
 export class TasksService {
   constructor(private userService: UserService) {}
-  @Cron('* 1-3 2 * * *') // Every day 2 oclock UTC
+  @Cron('* 1-2 2 * * *') // Every day 2 oclock UTC
   async handleCron() {
     const users = await this.userService.getAll();
     for (const user of users) {
-      console.log(user);
       const monthsToDelete = user.profile ? user.profile.monthsToDelete : 6;
       if (
         user.lastLoggedIn &&

@@ -2,11 +2,11 @@ import {
   BadRequestException,
   NotFoundException,
   Injectable,
-  Redirect,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
+
 import { User, UserDocument } from 'src/schemas/user.schema';
 
 @Injectable()
@@ -28,7 +28,6 @@ export class UserService {
         profile: userObj.profile ? userObj.profile : {},
       }) as UserDocument;
       await newUser.save({ validateBeforeSave: false }); // Because validation made in line 22
-      Redirect('/auth/login', 201);
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }

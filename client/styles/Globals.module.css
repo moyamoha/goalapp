@@ -1,0 +1,68 @@
+.link {
+  color: darkcyan !important;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.input {
+  padding: 9px 12px;
+  border-radius: 7px;
+  outline: none;
+  border: 1px solid rgb(20, 89, 52);
+  font-size: 1.05rem;
+  letter-spacing: 1.5px;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input:focus {
+  border: 1px solid darkkhaki;
+}
+
+.primaryBtn {
+  padding: 8px 12px;
+  border-radius: 7px;
+  background-color: #007bff;
+  font-size: 1.05rem;
+  color: white;
+  outline: none;
+  border: 1px solid #026ee2;
+  margin: 1rem 0;
+}
+
+.primaryBtn:hover {
+  color: #007bff;
+  background-color: white;
+}
+
+.formLine {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.passField {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.passField .input {
+  width: 100%;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+}
