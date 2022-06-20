@@ -1,10 +1,10 @@
-import Link from "next/link";
 import React from "react";
-import { useAppSelector } from "../state/hooks";
+
+import SmartLink from "./SmartLink";
+
 import introStyles from "../styles/Intro.module.css";
 
 export default function Intro() {
-	const user = useAppSelector((state) => state.auth.user);
 	return (
 		<div className={introStyles.introCont}>
 			<p>
@@ -14,9 +14,12 @@ export default function Intro() {
 				don&apos;t forget to celebrate your achievements. So enjoy this simple
 				yet meaningfull application.
 			</p>
-			<Link href={user ? "/home" : "/login"}>
-				<a className={introStyles.introBtn}>Get started &rarr;</a>
-			</Link>
+			<SmartLink
+				href="/home"
+				fallback="/login"
+				className={introStyles.introBtn}
+				text="Get started &rarr;"
+			></SmartLink>
 		</div>
 	);
 }

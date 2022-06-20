@@ -6,6 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
+import { Goal, GoalDocument } from 'src/schemas/goal.schema';
 
 import { User, UserDocument } from 'src/schemas/user.schema';
 
@@ -14,6 +15,9 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModal: Model<UserDocument>,
+
+    @InjectModel(Goal.name)
+    private goalModal: Model<GoalDocument>,
   ) {}
 
   async createUser(userObj: Partial<UserDocument>): Promise<void> {
@@ -49,6 +53,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException();
     }
+    await this.goalModal.deleteMany({ userId: user._id });
     return;
   }
 
@@ -67,6 +72,23 @@ export class UserService {
         await user.save({ validateBeforeSave: false })
       ).profile;
       return userProfile;
+    } catch (e) {
+      throw new BadRequestException(e, e.message);
+    }
+  }
+
+  async editAccount(
+    user: UserDocument,
+    accountData: Partial<UserDocument>,
+  ): Promise<UserDocument> {
+    const testPass = 'Ab1!Ab1!';
+    try {
+      const mockUser = new this.userModal({ ...user, ...accountData });
+      mockUser.password = testPass;
+      await mockUser.validate();
+      return await this.userModal.findByIdAndUpdate(user._id, accountData, {
+        new: true,
+      });
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }

@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from "react";
-import FormStrField from "../../components/FormStrField";
-import Layout from "../../components/Layout";
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import profStyles from "../../styles/Profile.module.css";
-import globalStyles from "../../styles/Globals.module.css";
-import { updateProfile } from "../../state/thunks/auth.thunk";
-import DeleteAccountDialog from "../../components/DeleteAccountDialog";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import React, { useState } from "react";
+import Layout from "../../../components/Layout";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useRedirectIfUnauthorized,
+} from "../../../state/hooks";
+import settingsStyle from "../../../styles/Settings.module.css";
+import globalStyles from "../../../styles/Globals.module.css";
+import { updateProfile } from "../../../state/thunks/auth.thunk";
+import DeleteAccountDialog from "../../../components/DeleteAccountDialog";
+import BackBtn from "../../../components/BackBtn";
+import ErrorAlert from "../../../components/ErrorAlert";
 
 const validDeletionPeriods = [3, 6, 12];
 const personalityTypes = ["realistic", "dreamer"];
 const themes = ["system", "light", "dark"];
 
 export default function Profile() {
-	const dispatch = useAppDispatch();
-	const router = useRouter();
-	const profile = useAppSelector((state) => state.auth.user)?.profile;
+	useRedirectIfUnauthorized();
+
 	const user = useAppSelector((s) => s.auth.user);
+	const authError = useAppSelector((s) => s.auth.authError);
+	const profile = useAppSelector((state) => state.auth.user)?.profile;
+
+	const dispatch = useAppDispatch();
+
 	const [formData, setFormData] = useState({
 		nickname: profile?.nickname ? profile.nickname : "",
 		monthsToDelete: profile?.monthsToDelete ? profile?.monthsToDelete : 6,
@@ -27,18 +34,8 @@ export default function Profile() {
 	});
 	const [showDialog, setShowDialog] = useState(false);
 
-	useEffect(
-		function () {
-			if (!user) {
-				router.replace("/");
-			}
-		},
-		[user, router]
-	);
-
 	const handleProfSubmit = (e: any) => {
 		e.preventDefault();
-		console.log(formData);
 		dispatch(
 			updateProfile({
 				...formData,
@@ -57,7 +54,7 @@ export default function Profile() {
 				<strong>Hi {`${user?.firstname} ${user?.lastname}`}</strong>! Start by
 				editing your profile
 			</span>
-			<form className={profStyles.profForm} onSubmit={handleProfSubmit}>
+			<form className={settingsStyle.profForm} onSubmit={handleProfSubmit}>
 				<div className={globalStyles.formLine}>
 					<label>Nickname</label>
 					<input
@@ -153,22 +150,16 @@ export default function Profile() {
 						className={globalStyles.input}
 					></input>
 				</div>
-				<div style={{ display: "flex", gap: "15px" }}>
-					<button type="submit" className={globalStyles.primaryBtn}>
-						Save
-					</button>
-					<button
-						type="button"
-						className={globalStyles.dangerBtn}
-						onClick={() => setShowDialog(true)}
-					>
-						Delete account
-					</button>
-				</div>
+				{authError !== "" ? (
+					<ErrorAlert message={authError}></ErrorAlert>
+				) : (
+					<></>
+				)}
+				<button type="submit" className={globalStyles.primaryBtn}>
+					Save
+				</button>
 			</form>
-			<Link href={"/home"} className={globalStyles.link}>
-				Back to home
-			</Link>
+			<BackBtn></BackBtn>
 		</Layout>
 	);
 }

@@ -5,6 +5,7 @@ import { deleteGoal } from "../state/thunks/goals.thunk";
 import { IGoalDoc } from "../state/types";
 import globalStyles from "../styles/Globals.module.css";
 import goalCardStyles from "../styles/GoalCard.module.css";
+import SmartLink from "./SmartLink";
 
 export default function GoalCard({ goal }: { goal: IGoalDoc }) {
 	const dispatch = useAppDispatch();
@@ -23,9 +24,12 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
 			</span>
 			<p>{goal.description}</p>
 			<span>
-				<Link href={`/goals/${goal._id}`}>
-					<a className={globalStyles.link}>See more or edit</a>
-				</Link>
+				<SmartLink
+					href={`/goals/${goal._id}`}
+					fallback="/login"
+					className={globalStyles.link}
+					text="See more or edit"
+				></SmartLink>
 			</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

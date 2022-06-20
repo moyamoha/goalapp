@@ -33,6 +33,21 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGaurd)
+  @Put('')
+  async editAccount(
+    @Req() req: CustomRequest,
+    @Body() body: Partial<UserDocument>,
+  ) {
+    const updated = await this.userService.editAccount(req.user, body);
+    return {
+      email: updated.email,
+      firstname: updated.firstname,
+      lastname: updated.lastname,
+      dateOfBirth: updated.dateOfBirth,
+    };
+  }
+
+  @UseGuards(JwtAuthGaurd)
   @Put('profile')
   async editProfile(
     @Req() req: CustomRequest,

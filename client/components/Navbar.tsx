@@ -3,6 +3,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { logout } from "../state/slices/auth.slice";
 import navStyles from "../styles/Navbar.module.css";
+import SmartLink from "./SmartLink";
 
 function Navbar() {
 	const user = useAppSelector((state) => state.auth.user);
@@ -14,34 +15,34 @@ function Navbar() {
 
 	return (
 		<nav className={navStyles.navbar}>
-			{user ? (
-				<Link href={"/home"}>
-					<a className={navStyles.navlink}>Home</a>
-				</Link>
-			) : (
-				<Link href={"/"}>
-					<a className={navStyles.navlink}>Home</a>
-				</Link>
-			)}
-			<Link href={"/create"}>
-				<a className={navStyles.navlink}>Create</a>
-			</Link>
+			<SmartLink
+				href="/home"
+				className={navStyles.navlink}
+				fallback="/"
+				text="Home"
+			></SmartLink>
+			<SmartLink
+				href="/create"
+				className={navStyles.navlink}
+				fallback="/login"
+				text="Create"
+			></SmartLink>
 			{user ? (
 				<>
 					<span className={navStyles.navlink} onClick={logoutUser}>
 						Log out
 					</span>
-					<Link href={"/profile"}>
-						<a className={navStyles.navlink}>Profile</a>
+					<Link href="/settings">
+						<a className={navStyles.navlink}>Settings</a>
 					</Link>
 				</>
 			) : (
 				<>
-					<Link href={"/login"}>
-						<a className={navStyles.navlink}>login</a>
+					<Link href="/login">
+						<a className={navStyles.navlink}>Login</a>
 					</Link>
-					<Link href={"/signup"}>
-						<a className={navStyles.navlink}>sign up</a>
+					<Link href="/signup">
+						<a className={navStyles.navlink}>Sign up</a>
 					</Link>
 				</>
 			)}

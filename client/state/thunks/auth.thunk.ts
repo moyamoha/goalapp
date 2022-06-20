@@ -2,7 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 import jwtDecode from "jwt-decode";
 
-import { logout, setUser } from "../slices/auth.slice";
+import { logout, setAuthError, setUser } from "../slices/auth.slice";
 import IStore, { AppDispatch, IProfile, IUserDoc } from "../types";
 
 interface IDecodedToken extends Partial<IUserDoc> {
@@ -21,8 +21,8 @@ export const login = (credintials: { email: string; password: string }) => {
 			delete user.iat;
 			dispatch(setUser(user as IUserDoc));
 			Router.replace("/home");
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			dispatch(setAuthError(e.response.data.message));
 		}
 	};
 };
@@ -32,8 +32,8 @@ export const registerUser = (userData: UserRegData) => {
 		try {
 			await axios.post("/users", userData);
 			Router.replace("/login");
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			dispatch(setAuthError(e.response.data.message));
 		}
 	};
 };
@@ -42,7 +42,6 @@ export const updateProfile = (profData: Partial<IProfile>) => {
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {
 			const response = await axios.put("/users/profile", profData);
-			console.log("response of data", response.data);
 			dispatch(
 				setUser({
 					...getState().auth.user,
@@ -50,7 +49,26 @@ export const updateProfile = (profData: Partial<IProfile>) => {
 				} as IUserDoc)
 			);
 			Router.replace("/home");
-		} catch (e) {}
+		} catch (e: any) {
+			dispatch(setAuthError(e.response.data.message));
+		}
+	};
+};
+
+export const updateAccountInfo = (accountData: Partial<IUserDoc>) => {
+	return async (dispatch: AppDispatch, getState: () => IStore) => {
+		try {
+			const response = await axios.put("/users/", accountData);
+			dispatch(
+				setUser({
+					...getState().auth.user,
+					...response.data,
+				})
+			);
+			Router.replace("/home");
+		} catch (e: any) {
+			dispatch(setAuthError(e.response.data.message));
+		}
 	};
 };
 

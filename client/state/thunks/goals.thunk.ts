@@ -11,9 +11,7 @@ export const getAll = () => {
 		try {
 			const response = await axios.get("/goals");
 			dispatch(setGoals(response.data));
-		} catch (e) {
-			console.log(e);
-		}
+		} catch (e) {}
 	};
 };
 
@@ -25,9 +23,7 @@ export const deleteGoal = (id: string) => {
 				.goals.goals.map((g) => g._id)
 				.indexOf(id);
 			dispatch(removeGoal(index));
-		} catch (e) {
-			console.log(e);
-		}
+		} catch (e) {}
 	};
 };
 
@@ -40,9 +36,7 @@ export const editGoal = (id: string, goal: Partial<IGoalDoc>) => {
 				.indexOf(id);
 			dispatch(replaceGoal({ index: index, data: response.data }));
 			Router.replace("/home");
-		} catch (e) {
-			console.log(e);
-		}
+		} catch (e) {}
 	};
 };
 

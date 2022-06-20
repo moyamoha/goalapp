@@ -1,21 +1,15 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
+import BackBtn from "../../components/BackBtn";
 import GoalForm from "../../components/GoalForm";
 import Layout from "../../components/Layout";
-import { useAppSelector } from "../../state/hooks";
+import { useRedirectIfUnauthorized } from "../../state/hooks";
 
 export default function Create() {
-	const router = useRouter();
-	const user = useAppSelector((state) => state.auth.user);
-	useEffect(function () {
-		if (!user) {
-			router.replace("/login");
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	useRedirectIfUnauthorized();
 	return (
 		<Layout>
 			<GoalForm goal={null}></GoalForm>
+			<BackBtn></BackBtn>
 		</Layout>
 	);
 }

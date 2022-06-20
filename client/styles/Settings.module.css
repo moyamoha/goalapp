@@ -8,6 +8,15 @@
   font-size: 1.05rem;
 }
 
+.deletionDialog {
+  min-width: 300px;
+	width: fit-content;
+	height: fit-content;
+	min-height: 150px;
+	box-shadow: 5px 5px 50px 48px rgba(4,0,0,0.47);
+	top: 40%;
+}
+
 
 @media (max-width: 900px) {
   .profForm {

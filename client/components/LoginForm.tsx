@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import authStyles from "../styles/AuthLayout.module.css";
 import globalStyles from "../styles/Globals.module.css";
-import { useAppDispatch } from "../state/hooks";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { login } from "../state/thunks/auth.thunk";
 import PasswordInput from "./PasswordField";
+import FormStrField from "./FormStrField";
+import ErrorAlert from "./ErrorAlert";
 
 export default function LoginForm() {
 	const dispatch = useAppDispatch();
+	const authError = useAppSelector((s) => s.auth.authError);
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -22,22 +26,21 @@ export default function LoginForm() {
 
 	return (
 		<form className={authStyles.authForm} onSubmit={handleSubmit}>
-			<div className={globalStyles.formLine}>
-				<label htmlFor="email">Email</label>
-				<input
-					className={globalStyles.input}
-					id="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				></input>
-			</div>
+			<FormStrField
+				id="email"
+				label="Email"
+				value={email}
+				type="text"
+				setValue={setEmail}
+				required={true}
+			></FormStrField>
 			<PasswordInput
 				labelText="Password"
 				id="password"
 				value={password}
 				setValue={setPassword}
 			></PasswordInput>
+			{authError !== "" ? <ErrorAlert message={authError}></ErrorAlert> : <></>}
 			<button className={globalStyles.primaryBtn} type="submit">
 				Login
 			</button>

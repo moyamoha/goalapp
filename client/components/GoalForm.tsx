@@ -5,6 +5,7 @@ import { createGoal, editGoal } from "../state/thunks/goals.thunk";
 import { IGoalDoc } from "../state/types";
 import globalStyles from "../styles/Globals.module.css";
 import goalFormStyles from "../styles/GoalForm.module.css";
+import { getDateFieldValue } from "../utils";
 
 export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 	const dispatch = useAppDispatch();
@@ -38,18 +39,6 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 			dispatch(editGoal(goal._id, submitData));
 		}
 	};
-
-	const getOnlyDateIdeal = useCallback(() => {
-		const dateObj = new Date(formData.targetDate);
-		const days = dateObj
-			.getUTCDate()
-			.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
-		const months = (dateObj.getUTCMonth() + 1).toLocaleString("en-US", {
-			minimumIntegerDigits: 2,
-			useGrouping: false,
-		});
-		return `${dateObj.getUTCFullYear()}-${months}-${days}`;
-	}, [formData.targetDate]);
 
 	return (
 		<form id={goalFormStyles.goalForm} onSubmit={handleSubmit}>
@@ -96,7 +85,7 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 					className={globalStyles.input}
 					id="ideal"
 					type="date"
-					value={getOnlyDateIdeal()}
+					value={getDateFieldValue(formData.targetDate)}
 					onChange={(e) =>
 						setFormData({
 							...formData,
@@ -154,9 +143,6 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 			<button className={globalStyles.primaryBtn} type="submit">
 				Submit
 			</button>
-			<Link href={"/home"}>
-				<a className={globalStyles.link}>Back to home</a>
-			</Link>
 		</form>
 	);
 }

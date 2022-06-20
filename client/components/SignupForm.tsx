@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import authStyles from "../styles/AuthLayout.module.css";
-import globalStyles from "../styles/Globals.module.css";
-import { useAppDispatch } from "../state/hooks";
-import { login, registerUser } from "../state/thunks/auth.thunk";
-import PasswordInput from "./PasswordField";
+
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { registerUser } from "../state/thunks/auth.thunk";
 import FormStrField from "./FormStrField";
 import PasswordField from "./PasswordField";
+import ErrorAlert from "./ErrorAlert";
+import { setAuthError } from "../state/slices/auth.slice";
+
+import authStyles from "../styles/AuthLayout.module.css";
+import globalStyles from "../styles/Globals.module.css";
 
 export default function SignupForm() {
 	const dispatch = useAppDispatch();
+	const authError = useAppSelector((s) => s.auth.authError);
+
 	const [email, setEmail] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
@@ -18,6 +23,10 @@ export default function SignupForm() {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		if (password1 !== password2) {
+			dispatch(setAuthError("Passwords should match"));
+			return;
+		}
 		dispatch(
 			registerUser({
 				email: email,
@@ -79,6 +88,7 @@ export default function SignupForm() {
 					setValue={setPassword2}
 				></PasswordField>
 			</section>
+			{authError !== "" ? <ErrorAlert message={authError}></ErrorAlert> : <></>}
 			<button type="submit" className={globalStyles.primaryBtn}>
 				Signup
 			</button>
