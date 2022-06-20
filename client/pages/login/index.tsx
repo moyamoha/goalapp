@@ -13,7 +13,7 @@ export default function Index() {
 			<p>
 				Don&apos;t have an account?{" "}
 				<Link href="/signup">
-					<a className={globalStyles.link}></a>
+					<a className={globalStyles.link}>Create one</a>
 				</Link>
 			</p>
 		</AuthLayout>

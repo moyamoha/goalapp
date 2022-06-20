@@ -10,7 +10,11 @@ import { AuthModule } from './auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
+    MongooseModule.forRoot(
+      process.env.NODE_ENV === 'production'
+        ? process.env.MONGODB_URL
+        : process.env.MONGODB_URI_LOCAL,
+    ),
     GoalModule,
     UserModule,
     AuthModule,

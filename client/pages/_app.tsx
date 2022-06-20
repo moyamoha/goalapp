@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "../state/store";
 import "../styles/globals.css";
 
-axios.defaults.baseURL = "http://localhost:44444/";
+axios.defaults.baseURL = "https://goal-tracker-yahya.herokuapp.com/";
 axios.interceptors.request.use((request) => {
 	const token = localStorage.getItem("accessToken");
 	if (token) {
