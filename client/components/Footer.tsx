@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../styles/Footer.module.css";
-import globalStyles from "../styles/Globals.module.css";
+import styles from "@styles/Footer.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 export default function Footer() {
 	return (

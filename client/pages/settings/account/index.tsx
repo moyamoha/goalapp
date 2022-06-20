@@ -5,16 +5,16 @@ import {
 	useAppSelector,
 	useRedirectIfUnauthorized,
 } from "../../../state/hooks";
-import FormStrField from "../../../components/FormStrField";
-import Layout from "../../../components/Layout";
-import DeleteAccountDialog from "../../../components/DeleteAccountDialog";
-import BackBtn from "../../../components/BackBtn";
+import FormStrField from "@components/FormStrField";
+import Layout from "@components/Layout";
+import DeleteAccountDialog from "@components/DeleteAccountDialog";
+import BackBtn from "@components/BackBtn";
 import { getDateFieldValue } from "../../../utils";
 import { updateAccountInfo } from "../../../state/thunks/auth.thunk";
-import ErrorAlert from "../../../components/ErrorAlert";
+import ErrorAlert from "@components/ErrorAlert";
 
-import authStyles from "../../../styles/AuthLayout.module.css";
-import globalStyles from "../../../styles/Globals.module.css";
+import authStyles from "@styles/AuthLayout.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 export default function AccountSettings() {
 	const dispatch = useAppDispatch();

@@ -1,11 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import Layout from "../../components/Layout";
-import GoalForm from "../../components/GoalForm";
+import Layout from "@components/Layout";
+import GoalForm from "@components/GoalForm";
 import { useAppSelector, useRedirectIfUnauthorized } from "../../state/hooks";
 import { IGoalDoc } from "../../state/types";
-import BackBtn from "../../components/BackBtn";
+import BackBtn from "@components/BackBtn";
 
 export default function Goal() {
 	useRedirectIfUnauthorized();

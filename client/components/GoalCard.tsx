@@ -1,11 +1,12 @@
-import Link from "next/link";
 import React from "react";
+
 import { useAppDispatch } from "../state/hooks";
 import { deleteGoal } from "../state/thunks/goals.thunk";
 import { IGoalDoc } from "../state/types";
-import globalStyles from "../styles/Globals.module.css";
-import goalCardStyles from "../styles/GoalCard.module.css";
 import SmartLink from "./SmartLink";
+
+import globalStyles from "@styles/Globals.module.css";
+import goalCardStyles from "@styles/GoalCard.module.css";
 
 export default function GoalCard({ goal }: { goal: IGoalDoc }) {
 	const dispatch = useAppDispatch();

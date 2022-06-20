@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import GoalCard from "../../components/GoalCard";
-import Layout from "../../components/Layout";
+import GoalCard from "@components/GoalCard";
+import Layout from "@components/Layout";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { getAll } from "../../state/thunks/goals.thunk";
-import homeStyles from "../../styles/Home.module.css";
+import homeStyles from "@styles/Home.module.css";
 
 export default function Home() {
 	const dispatch = useAppDispatch();

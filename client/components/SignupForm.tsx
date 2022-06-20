@@ -7,8 +7,8 @@ import PasswordField from "./PasswordField";
 import ErrorAlert from "./ErrorAlert";
 import { setAuthError } from "../state/slices/auth.slice";
 
-import authStyles from "../styles/AuthLayout.module.css";
-import globalStyles from "../styles/Globals.module.css";
+import authStyles from "@styles/AuthLayout.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 export default function SignupForm() {
 	const dispatch = useAppDispatch();

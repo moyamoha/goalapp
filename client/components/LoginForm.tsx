@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import authStyles from "../styles/AuthLayout.module.css";
-import globalStyles from "../styles/Globals.module.css";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { login } from "../state/thunks/auth.thunk";
 import PasswordInput from "./PasswordField";
 import FormStrField from "./FormStrField";
 import ErrorAlert from "./ErrorAlert";
+
+import authStyles from "@styles/AuthLayout.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 export default function LoginForm() {
 	const dispatch = useAppDispatch();

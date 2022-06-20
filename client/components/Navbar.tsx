@@ -1,9 +1,11 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { logout } from "../state/slices/auth.slice";
-import navStyles from "../styles/Navbar.module.css";
 import SmartLink from "./SmartLink";
+
+import navStyles from "@styles/Navbar.module.css";
 
 function Navbar() {
 	const user = useAppSelector((state) => state.auth.user);

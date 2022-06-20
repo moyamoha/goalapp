@@ -2,8 +2,8 @@ import React from "react";
 
 import { useAppDispatch } from "../state/hooks";
 import { deleteAccount } from "../state/thunks/auth.thunk";
-import globalStyles from "../styles/Globals.module.css";
-import settingsStyle from "../styles/Settings.module.css";
+import globalStyles from "@styles/Globals.module.css";
+import settingsStyle from "@styles/Settings.module.css";
 
 type DeleteAccountDialogPropsType = {
 	showDialog: boolean;

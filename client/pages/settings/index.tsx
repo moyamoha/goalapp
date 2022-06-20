@@ -1,12 +1,11 @@
 import React from "react";
-import Link from "next/link";
 
-import Layout from "../../components/Layout";
+import Layout from "@components/Layout";
 import { useRedirectIfUnauthorized } from "../../state/hooks";
 
-import globalStyles from "../../styles/Globals.module.css";
-import BackBtn from "../../components/BackBtn";
-import SmartLink from "../../components/SmartLink";
+import globalStyles from "@styles/Globals.module.css";
+import BackBtn from "@components/BackBtn";
+import SmartLink from "@components/SmartLink";
 
 export default function Settings() {
 	useRedirectIfUnauthorized();

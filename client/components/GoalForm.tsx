@@ -1,11 +1,12 @@
-import Link from "next/link";
 import React, { useCallback, useMemo, useState } from "react";
+
 import { useAppDispatch } from "../state/hooks";
 import { createGoal, editGoal } from "../state/thunks/goals.thunk";
 import { IGoalDoc } from "../state/types";
-import globalStyles from "../styles/Globals.module.css";
-import goalFormStyles from "../styles/GoalForm.module.css";
 import { getDateFieldValue } from "../utils";
+
+import globalStyles from "@styles/Globals.module.css";
+import goalFormStyles from "@styles/GoalForm.module.css";
 
 export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 	const dispatch = useAppDispatch();

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import Layout from "../../../components/Layout";
+import Layout from "@components/Layout";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useRedirectIfUnauthorized,
 } from "../../../state/hooks";
-import settingsStyle from "../../../styles/Settings.module.css";
-import globalStyles from "../../../styles/Globals.module.css";
+import settingsStyle from "@styles/Settings.module.css";
+import globalStyles from "@styles/Globals.module.css";
 import { updateProfile } from "../../../state/thunks/auth.thunk";
-import DeleteAccountDialog from "../../../components/DeleteAccountDialog";
-import BackBtn from "../../../components/BackBtn";
-import ErrorAlert from "../../../components/ErrorAlert";
+import DeleteAccountDialog from "@components/DeleteAccountDialog";
+import BackBtn from "@components/BackBtn";
+import ErrorAlert from "@components/ErrorAlert";
 
 const validDeletionPeriods = [3, 6, 12];
 const personalityTypes = ["realistic", "dreamer"];

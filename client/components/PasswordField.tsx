@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import globalStyles from "../styles/Globals.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 type PasswordFieldPropsType = {
 	labelText: string;

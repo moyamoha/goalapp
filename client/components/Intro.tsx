@@ -2,7 +2,7 @@ import React from "react";
 
 import SmartLink from "./SmartLink";
 
-import introStyles from "../styles/Intro.module.css";
+import introStyles from "@styles/Intro.module.css";
 
 export default function Intro() {
 	return (

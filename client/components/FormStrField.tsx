@@ -1,5 +1,5 @@
 import React from "react";
-import globalStyles from "../styles/Globals.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 type FormStrFieldPropsType<T> = {
 	type: string;

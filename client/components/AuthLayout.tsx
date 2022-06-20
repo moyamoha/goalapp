@@ -1,6 +1,6 @@
 import React from "react";
-import authStyles from "../styles/AuthLayout.module.css";
-import globalStyles from "../styles/Globals.module.css";
+import authStyles from "@styles/AuthLayout.module.css";
+import globalStyles from "@styles/Globals.module.css";
 import SmartLink from "./SmartLink";
 
 export default function AuthLayout({ children }: { children: any }) {
