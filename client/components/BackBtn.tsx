@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import globalStyles from "../styles/Globals.module.css";
+import globalStyles from "@styles/Globals.module.css";
 
 export default function BackToHomeBtn({ backTo }: { backTo?: string }) {
 	const router = useRouter();

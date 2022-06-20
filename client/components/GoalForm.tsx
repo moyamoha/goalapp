@@ -20,7 +20,7 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 		date: goal && goal?.reached ? goal.reached.date : "",
 		celebrationText: goal && goal?.reached ? goal.reached.celebrationText : "",
 	});
-	const [reached, setReached] = useState(false);
+	const [reached, setReached] = useState(goal?.reached !== undefined || false);
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -114,7 +114,7 @@ export default function GoalForm({ goal }: { goal: IGoalDoc | null }) {
 							id="dateAchieved"
 							type="date"
 							required
-							value={reachedData.date}
+							value={getDateFieldValue(reachedData.date)}
 							onChange={(e) =>
 								setReachedData({
 									...reachedData,

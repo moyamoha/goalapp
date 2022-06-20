@@ -60,17 +60,13 @@ export class GoalService {
     goal: Partial<GoalDocument>,
   ): Promise<GoalDocument> {
     try {
-      const updated = await this.goalModal.findOneAndUpdate(
-        {
-          _id: new mongoose.Types.ObjectId(goalId),
-          userId: new mongoose.Types.ObjectId(user._id),
-        },
-        goal,
-        {
-          new: true,
-        },
-      );
-      return updated;
+      await this.goalModal.findOneAndDelete({
+        _id: new mongoose.Types.ObjectId(goalId),
+        userId: new mongoose.Types.ObjectId(user._id),
+      });
+      const newGoal = new this.goalModal(goal);
+      newGoal.userId = new mongoose.Types.ObjectId(goal.userId);
+      return await newGoal.save();
     } catch (e) {
       throw new BadRequestException(e);
     }

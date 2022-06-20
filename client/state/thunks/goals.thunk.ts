@@ -30,10 +30,15 @@ export const deleteGoal = (id: string) => {
 export const editGoal = (id: string, goal: Partial<IGoalDoc>) => {
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {
-			const response = await axios.put(`/goals/${id}`, goal);
 			const index = getState()
 				.goals.goals.map((g) => g._id)
 				.indexOf(id);
+			const reqData: IGoalDoc = {
+				...getState().goals.goals[index],
+				...goal,
+			};
+			if (!goal.reached) delete reqData.reached;
+			const response = await axios.put(`/goals/${id}`, reqData);
 			dispatch(replaceGoal({ index: index, data: response.data }));
 			Router.replace("/home");
 		} catch (e) {}
