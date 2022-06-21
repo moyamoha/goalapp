@@ -2,7 +2,8 @@ import axios from "axios";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
-import store from "../state/store";
+import store, { persistor } from "../state/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 import "@styles/globals.css";
 
@@ -20,7 +21,9 @@ axios.interceptors.request.use((request) => {
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<Provider store={store}>
-			<Component {...pageProps} />
+			<PersistGate persistor={persistor} loading={null}>
+				<Component {...pageProps} />
+			</PersistGate>
 		</Provider>
 	);
 }
