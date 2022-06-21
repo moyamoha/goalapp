@@ -31,7 +31,7 @@ export default function LoginForm() {
 				id="email"
 				label="Email"
 				value={email}
-				type="text"
+				type="email"
 				setValue={setEmail}
 				required={true}
 			></FormStrField>

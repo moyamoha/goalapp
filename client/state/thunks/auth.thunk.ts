@@ -9,23 +9,6 @@ interface IDecodedToken extends Partial<IUserDoc> {
 	iat?: number;
 }
 
-export const getUserFromToken = () => {
-	return (dispatch: AppDispatch, getState: () => IStore) => {
-		const token = localStorage.getItem("accessToken");
-		if (token) {
-			const decoded = jwtDecode(token) as IDecodedToken;
-			const user = {
-				...decoded,
-			};
-			delete user.iat;
-			dispatch(setUser(user as IUserDoc));
-			Router.replace("/home");
-		} else {
-			Router.replace("/login");
-		}
-	};
-};
-
 export const login = (credintials: { email: string; password: string }) => {
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {

@@ -1,24 +1,27 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import GoalCard from "@components/GoalCard";
 import Layout from "@components/Layout";
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useRedirectIfUnauthorized,
+} from "../../state/hooks";
 import { getAll } from "../../state/thunks/goals.thunk";
 import homeStyles from "@styles/Home.module.css";
 
 export default function Home() {
+	useRedirectIfUnauthorized();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const user = useAppSelector((state) => state.auth.user);
 	const goals = useAppSelector((state) => state.goals.goals);
 	const loading = useAppSelector((state) => state.goals.loading);
 
-	useEffect(function () {
-		if (!user) {
-			router.replace("/login");
-		} else dispatch(getAll());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	useEffect(() => {
+		if (user) dispatch(getAll());
+		else router.replace("/login");
+	}, [user, router, dispatch]);
 
 	return (
 		<Layout>

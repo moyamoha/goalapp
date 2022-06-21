@@ -1,18 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
 import Layout from "@components/Layout";
-import { getAll } from "../state/thunks/goals.thunk";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
 import Intro from "@components/Intro";
 
 const Home: NextPage = () => {
-	const dispatch = useAppDispatch();
-	const user = useAppSelector((state) => state.auth.user);
-
-	useEffect(() => {
-		dispatch(getAll());
-	});
 	return (
 		<div>
 			<Head>
