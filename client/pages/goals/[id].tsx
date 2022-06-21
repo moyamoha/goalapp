@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "@components/Layout";
@@ -13,6 +13,7 @@ export default function Goal() {
 	const { id } = router.query;
 	const goals = useAppSelector((state) => state.goals.goals);
 	const goal = goals.find((g) => g._id === id) as IGoalDoc;
+
 	return (
 		<Layout>
 			<GoalForm goal={goal}></GoalForm>
