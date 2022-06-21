@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Router from "next/router";
-import { IUserDoc, IProfile } from "../types";
+import { IUserDoc } from "../types";
 
 type InitialStateType = {
 	user: IUserDoc | null;
@@ -24,7 +24,6 @@ const authSlice = createSlice({
 			state.user = null;
 			state.authError = "";
 			Router.replace("/");
-			localStorage.clear();
 		},
 		setAuthError: (state, action: PayloadAction<string>) => {
 			state.authError = action.payload;

@@ -3,7 +3,7 @@ import Router from "next/router";
 import jwtDecode from "jwt-decode";
 
 import { logout, setAuthError, setUser } from "../slices/auth.slice";
-import IStore, { AppDispatch, IProfile, IUserDoc } from "../types";
+import IStore, { AppDispatch, IUserDoc } from "../types";
 
 interface IDecodedToken extends Partial<IUserDoc> {
 	iat?: number;
@@ -38,24 +38,7 @@ export const registerUser = (userData: UserRegData) => {
 	};
 };
 
-export const updateProfile = (profData: Partial<IProfile>) => {
-	return async (dispatch: AppDispatch, getState: () => IStore) => {
-		try {
-			const response = await axios.put("/users/profile", profData);
-			dispatch(
-				setUser({
-					...getState().auth.user,
-					profile: response.data,
-				} as IUserDoc)
-			);
-			Router.replace("/home");
-		} catch (e: any) {
-			dispatch(setAuthError(e.response.data.message));
-		}
-	};
-};
-
-export const updateAccountInfo = (accountData: Partial<IUserDoc>) => {
+export const updateUser = (accountData: Partial<IUserDoc>) => {
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {
 			const response = await axios.put("/users/", accountData);
@@ -77,6 +60,7 @@ export const deleteAccount = () => {
 		try {
 			await axios.delete("/users/");
 			localStorage.removeItem("accessToken");
+			localStorage.clear();
 			dispatch(logout());
 		} catch (e) {}
 	};

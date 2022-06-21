@@ -9,7 +9,7 @@ export class TasksService {
   async handleCron() {
     const users = await this.userService.getAll();
     for (const user of users) {
-      const monthsToDelete = user.profile ? user.profile.monthsToDelete : 6;
+      const monthsToDelete = user.monthsToDelete;
       if (
         user.lastLoggedIn &&
         Date.now() - Date.parse(user.lastLoggedIn.toISOString()) >=

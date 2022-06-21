@@ -13,6 +13,7 @@ function Navbar() {
 
 	const logoutUser = () => {
 		dispatch(logout());
+		localStorage.clear();
 	};
 
 	return (

@@ -1,29 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
 
+import {
+	useAppDispatch,
+	useAppSelector,
+	useRedirectIfUnauthorized,
+} from "../../state/hooks";
+import FormStrField from "@components/FormStrField";
 import Layout from "@components/Layout";
-import { useRedirectIfUnauthorized } from "../../state/hooks";
-
-import globalStyles from "@styles/Globals.module.css";
+import DeleteAccountDialog from "@components/DeleteAccountDialog";
 import BackBtn from "@components/BackBtn";
-import SmartLink from "@components/SmartLink";
+import { getDateFieldValue } from "../../utils";
+import { updateUser } from "../../state/thunks/auth.thunk";
+import ErrorAlert from "@components/ErrorAlert";
+
+import authStyles from "@styles/AuthLayout.module.css";
+import globalStyles from "@styles/Globals.module.css";
+
+const validDeletionPeriods = [3, 6, 12];
 
 export default function Settings() {
+	const dispatch = useAppDispatch();
 	useRedirectIfUnauthorized();
+
+	const user = useAppSelector((s) => s.auth.user);
+	const authError = useAppSelector((s) => s.auth.authError);
+
+	const [email, setEmail] = useState(user?.email || "");
+	const [firstname, setFirstname] = useState(user?.firstname || "");
+	const [lastname, setLastname] = useState(user?.lastname || "");
+	const [dob, setDob] = useState(user?.dateOfBirth || "");
+	const [monthsToDelete, setMonthsToDelete] = useState(
+		user?.monthsToDelete || 6
+	);
+	const [showDialog, setShowDialog] = useState(false);
+
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+		dispatch(
+			updateUser({
+				email: email,
+				firstname: firstname,
+				lastname: lastname,
+				dateOfBirth: dob,
+				monthsToDelete: monthsToDelete,
+			})
+		);
+	};
 	return (
 		<Layout>
-			<SmartLink
-				href="/settings/profile"
-				fallback="/login"
-				className={globalStyles.link}
-				text="Profile settings &rarr;"
-			></SmartLink>
-			<SmartLink
-				href="/settings/account"
-				fallback="/login"
-				className={globalStyles.link}
-				text="Account settings &rarr;"
-			></SmartLink>
-			<BackBtn backTo="/home"></BackBtn>
+			<DeleteAccountDialog
+				showDialog={showDialog}
+				setShowDialog={setShowDialog}
+			></DeleteAccountDialog>
+			<form className={authStyles.authForm} onSubmit={handleSubmit}>
+				<FormStrField
+					id="email"
+					label="Email"
+					required
+					value={email}
+					setValue={setEmail}
+					type="email"
+				></FormStrField>
+				<section className={globalStyles.formRow}>
+					<FormStrField
+						id="first"
+						label="Firstname"
+						required
+						value={firstname}
+						setValue={setFirstname}
+						type="text"
+					></FormStrField>
+					<FormStrField
+						id="last"
+						label="Lastname"
+						required
+						value={lastname}
+						setValue={setLastname}
+						type="text"
+					></FormStrField>
+				</section>
+				<FormStrField
+					id="dob"
+					label="Date of birth"
+					required
+					value={getDateFieldValue(dob)}
+					setValue={setDob}
+					type="date"
+				></FormStrField>
+				<div className={globalStyles.formLine}>
+					<label>Delete account if inactive for (months)</label>
+					<select
+						onChange={(e) =>
+							setMonthsToDelete(parseInt(e.target.value) as 3 | 6 | 12)
+						}
+						className={globalStyles.customSelect + " " + globalStyles.input}
+						value={monthsToDelete}
+					>
+						{validDeletionPeriods.map((item) => (
+							<option key={item} value={item} className={globalStyles.input}>
+								{item}
+							</option>
+						))}
+					</select>
+				</div>
+				{authError !== "" ? (
+					<ErrorAlert message={authError}></ErrorAlert>
+				) : (
+					<></>
+				)}
+				<section style={{ display: "flex", gap: "15px" }}>
+					<button type="submit" className={globalStyles.primaryBtn}>
+						Save changes
+					</button>
+					<button
+						type="button"
+						className={globalStyles.dangerBtn}
+						onClick={() => setShowDialog(true)}
+					>
+						Delete account
+					</button>
+				</section>
+			</form>
+			<BackBtn></BackBtn>
 		</Layout>
 	);
 }

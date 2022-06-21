@@ -19,15 +19,7 @@ export interface IUserDoc {
 	firstname: string;
 	lastname: string;
 	dateOfBirth: string;
-	profile: IProfile;
-}
-
-export interface IProfile {
-	theme?: "dark" | "light" | "system";
 	monthsToDelete?: 3 | 6 | 12;
-	timezoneOffset?: number;
-	personality?: "dreamer" | "realistic";
-	nickname?: string;
 }
 
 export type IStore = ReturnType<typeof store.getState>;

@@ -28,7 +28,6 @@ export class UserService {
       const newUser = new this.userModal({
         ...userObj,
         password: hashedPassoword,
-        profile: userObj.profile ? userObj.profile : {},
       }) as UserDocument;
       await newUser.save({ validateBeforeSave: false }); // Because validation made in line 22
     } catch (e) {
@@ -57,36 +56,17 @@ export class UserService {
     return;
   }
 
-  async editProfile(
+  async editUser(
     user: UserDocument,
-    profile: Partial<UserDocument['profile']>,
-  ): Promise<UserDocument['profile']> {
-    const testPass = 'Ab1!Ab1!';
-    try {
-      const mockUser = new this.userModal(user);
-      mockUser.profile = profile;
-      mockUser.password = testPass;
-      await mockUser.validate();
-      user.profile = { ...user.profile, ...profile };
-      const userProfile = await (
-        await user.save({ validateBeforeSave: false })
-      ).profile;
-      return userProfile;
-    } catch (e) {
-      throw new BadRequestException(e, e.message);
-    }
-  }
-
-  async editAccount(
-    user: UserDocument,
-    accountData: Partial<UserDocument>,
+    data: Partial<UserDocument>,
   ): Promise<UserDocument> {
     const testPass = 'Ab1!Ab1!';
+    console.log(data);
     try {
-      const mockUser = new this.userModal({ ...user, ...accountData });
+      const mockUser = new this.userModal({ ...user, ...data });
       mockUser.password = testPass;
       await mockUser.validate();
-      return await this.userModal.findByIdAndUpdate(user._id, accountData, {
+      return await this.userModal.findByIdAndUpdate(user._id, data, {
         new: true,
       });
     } catch (e) {
