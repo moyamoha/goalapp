@@ -61,7 +61,6 @@ export class UserService {
     data: Partial<UserDocument>,
   ): Promise<UserDocument> {
     const testPass = 'Ab1!Ab1!';
-    console.log(data);
     try {
       const mockUser = new this.userModal({ ...user, ...data });
       mockUser.password = testPass;
