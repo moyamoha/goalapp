@@ -1,9 +1,9 @@
 import axios from "axios";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 import store, { persistor } from "../state/store";
-import { PersistGate } from "redux-persist/integration/react";
 
 import "@styles/globals.css";
 

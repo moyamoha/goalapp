@@ -24,6 +24,7 @@ const authSlice = createSlice({
 			state.user = null;
 			state.authError = "";
 			Router.replace("/");
+			localStorage.clear();
 		},
 		setAuthError: (state, action: PayloadAction<string>) => {
 			state.authError = action.payload;
