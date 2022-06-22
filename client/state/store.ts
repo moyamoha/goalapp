@@ -4,10 +4,12 @@ import { persistReducer, persistStore } from "redux-persist";
 
 import authReducer from "./slices/auth.slice";
 import goalReducer from "./slices/goals.slice";
+import quoteReducer from "./slices/quotes.slice";
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	goals: goalReducer,
+	quotes: quoteReducer,
 });
 
 const persistConfig = {
