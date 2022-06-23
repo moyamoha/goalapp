@@ -43,7 +43,7 @@ export class UserController {
         to: 'salimiyahya50@gmail.com',
         subject: 'Test',
         text: 'This is just a test',
-        html: '<p>This is just a test</p>',
+        html: '<p><a href="https://yahyasalimi.netlify.app">Yahya</a></p>',
       });
     } catch (e) {
       console.log(e);
