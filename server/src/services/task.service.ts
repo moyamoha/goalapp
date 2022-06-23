@@ -5,6 +5,9 @@ import { UserService } from './user.service';
 @Injectable()
 export class TasksService {
   constructor(private userService: UserService) {}
+
+  // This task delete users that have been inactive for the amount of months that they have setted in their account
+  // which in turn defines to delete their account after being inactive for that amount of time.
   @Cron('* 1-2 2 * * *') // Every day 2 oclock UTC
   async handleCron() {
     const users = await this.userService.getAll();

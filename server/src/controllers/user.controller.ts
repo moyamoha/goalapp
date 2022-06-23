@@ -1,10 +1,13 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -16,12 +19,35 @@ import { CustomRequest } from 'src/types/custom';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private mailService: MailerService,
+  ) {}
 
   @Post('')
   @HttpCode(201)
-  async registerUser(@Body() body: Partial<UserDocument>): Promise<void> {
-    await this.userService.createUser(body);
+  async registerUser(@Body() body: Partial<UserDocument>): Promise<string> {
+    const createdUser = await this.userService.createUser(body);
+    await this.mailService.sendMail({
+      from: process.env.EMAIL_SENDER,
+      to: createdUser.email,
+    });
+    return 'success';
+  }
+
+  @Get('confirm')
+  async sendTestEmail(): Promise<void> {
+    try {
+      await this.mailService.sendMail({
+        from: process.env.EMAIL_SENDER,
+        to: 'moyamoha@edu.jyu.fi',
+        subject: 'Test',
+        text: 'This is just a test',
+        html: '<p>This is just a test</p>',
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   @UseGuards(JwtAuthGaurd)

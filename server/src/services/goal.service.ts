@@ -30,15 +30,14 @@ export class GoalService {
 
   async createGoal(
     user: UserDocument,
-    body: Partial<GoalDocument>,
+    body: GoalDocument,
   ): Promise<GoalDocument> {
     try {
-      let newGoal = new this.goalModal({
+      const newGoal = new this.goalModal({
         ...body,
         userId: new mongoose.Types.ObjectId(user._id),
       });
-      newGoal = await newGoal.save();
-      return newGoal;
+      return await newGoal.save();
     } catch (e) {
       throw new BadRequestException(e);
     }
@@ -57,7 +56,7 @@ export class GoalService {
   async editGoal(
     user: UserDocument,
     goalId: string,
-    goal: Partial<GoalDocument>,
+    goal: GoalDocument,
   ): Promise<GoalDocument> {
     try {
       await this.goalModal.findOneAndDelete({

@@ -20,7 +20,7 @@ export class UserService {
     private goalModal: Model<GoalDocument>,
   ) {}
 
-  async createUser(userObj: Partial<UserDocument>): Promise<void> {
+  async createUser(userObj: Partial<UserDocument>): Promise<UserDocument> {
     try {
       const mockUser = new this.userModal(userObj);
       await mockUser.validate();
@@ -29,7 +29,7 @@ export class UserService {
         ...userObj,
         password: hashedPassoword,
       }) as UserDocument;
-      await newUser.save({ validateBeforeSave: false }); // Because validation made in line 22
+      return await newUser.save({ validateBeforeSave: false }); // Because validation made in line 22
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }
@@ -41,6 +41,16 @@ export class UserService {
       throw new NotFoundException('Specified user was not found');
     }
     return user;
+  }
+
+  async confirmEmail(userId: string): Promise<void> {
+    try {
+      const user = await this.userModal.findById(userId);
+      user.emailConfirmed = true;
+      await user.save({ validateBeforeSave: false });
+    } catch (e) {
+      throw new NotFoundException('User ' + userId + ' not found');
+    }
   }
 
   async getAll(): Promise<UserDocument[]> {

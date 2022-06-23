@@ -48,7 +48,7 @@ export class GoalController {
   @Post()
   async createGoal(
     @Req() req: any,
-    @Body() body: Partial<GoalDocument>,
+    @Body() body: GoalDocument,
   ): Promise<GoalDocument> {
     return await this.goalService.createGoal(req.user as UserDocument, body);
   }
@@ -58,7 +58,7 @@ export class GoalController {
   async editGoal(
     @Req() req: any,
     @Param() params,
-    @Body() body: Partial<GoalDocument>,
+    @Body() body: GoalDocument,
   ): Promise<GoalDocument> {
     return await this.goalService.editGoal(
       req.user as UserDocument,
