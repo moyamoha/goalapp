@@ -21,7 +21,6 @@ import { UserService } from 'src/services/user.service';
           user: process.env.SENDGRID_USERNAME,
           pass: process.env.SENDGRID_API_KEY,
         },
-        port: 2525,
       },
     }),
   ],

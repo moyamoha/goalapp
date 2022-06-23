@@ -12,8 +12,6 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { link } from 'fs';
-import { NotFoundError } from 'rxjs';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 
 import { UserDocument } from 'src/schemas/user.schema';
@@ -29,7 +27,7 @@ export class UserController {
 
   @Post('')
   @HttpCode(201)
-  async registerUser(@Body() body: Partial<UserDocument>): Promise<string> {
+  async registerUser(@Body() body: Partial<UserDocument>): Promise<void> {
     try {
       const createdUser = await this.userService.createUser(body);
       const link =
@@ -39,9 +37,8 @@ export class UserController {
         to: createdUser.email,
         subject: 'Confirm your email',
         text: 'Please confirm your email address',
-        html: `<p>Please confirm your email address by clicking<a href="${link}">here</a></p>`,
+        html: `<h2>Welcome to Goalie</h2><p>Please confirm your email address by clicking <a href="${link}">here</a></p><span>Team Goalie</span>`,
       });
-      return 'success';
     } catch (e) {}
   }
 
