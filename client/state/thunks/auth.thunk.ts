@@ -2,7 +2,12 @@ import axios from "axios";
 import Router from "next/router";
 import jwtDecode from "jwt-decode";
 
-import { logout, setAuthError, setUser } from "../slices/auth.slice";
+import {
+	logout,
+	setAuthError,
+	setShowConfirmPage,
+	setUser,
+} from "../slices/auth.slice";
 import IStore, { AppDispatch, IUserDoc } from "../types";
 
 interface IDecodedToken extends Partial<IUserDoc> {
@@ -31,7 +36,8 @@ export const registerUser = (userData: UserRegData) => {
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {
 			await axios.post("/users", userData);
-			Router.replace("/login");
+			dispatch(setShowConfirmPage(true));
+			Router.replace("/confirm-your-email");
 		} catch (e: any) {
 			dispatch(setAuthError(e.response.data.message));
 		}
