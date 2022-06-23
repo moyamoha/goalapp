@@ -5,12 +5,15 @@ import {
   Delete,
   Get,
   HttpCode,
+  NotFoundException,
   Post,
   Put,
   Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { link } from 'fs';
+import { NotFoundError } from 'rxjs';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 
 import { UserDocument } from 'src/schemas/user.schema';
@@ -27,26 +30,28 @@ export class UserController {
   @Post('')
   @HttpCode(201)
   async registerUser(@Body() body: Partial<UserDocument>): Promise<string> {
-    const createdUser = await this.userService.createUser(body);
-    await this.mailService.sendMail({
-      from: process.env.EMAIL_SENDER,
-      to: createdUser.email,
-    });
-    return 'success';
+    try {
+      const createdUser = await this.userService.createUser(body);
+      const link =
+        process.env.SITE_ADDRESS + '/users/confirm/?id=' + createdUser.id;
+      await this.mailService.sendMail({
+        from: process.env.EMAIL_SENDER,
+        to: createdUser.email,
+        subject: 'Confirm your email',
+        text: 'Please confirm your email address',
+        html: `<p>Please confirm your email address by clicking<a href="${link}">here</a></p>`,
+      });
+      return 'success';
+    } catch (e) {}
   }
 
   @Get('confirm')
-  async sendTestEmail(): Promise<void> {
+  async sendTestEmail(@Query() query): Promise<void> {
     try {
-      await this.mailService.sendMail({
-        from: process.env.EMAIL_SENDER,
-        to: 'salimiyahya50@gmail.com',
-        subject: 'Test',
-        text: 'This is just a test',
-        html: '<p><a href="https://yahyasalimi.netlify.app">Yahya</a></p>',
-      });
+      const userId = query.id;
+      await this.userService.confirmEmail(userId);
     } catch (e) {
-      console.log(e);
+      throw new NotFoundException(e, e.message);
     }
   }
 
