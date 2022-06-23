@@ -43,10 +43,11 @@ export class UserController {
   }
 
   @Get('confirm')
-  async sendTestEmail(@Query() query): Promise<void> {
+  async sendTestEmail(@Query() query): Promise<string> {
     try {
       const userId = query.id;
       await this.userService.confirmEmail(userId);
+      return 'Email confirmed successfully. You can now use our services. Enjoy!';
     } catch (e) {
       throw new NotFoundException(e, e.message);
     }
