@@ -40,7 +40,7 @@ export class UserController {
     try {
       await this.mailService.sendMail({
         from: process.env.EMAIL_SENDER,
-        to: 'moyamoha@edu.jyu.fi',
+        to: 'salimiyahya50@gmail.com',
         subject: 'Test',
         text: 'This is just a test',
         html: '<p>This is just a test</p>',
