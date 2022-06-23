@@ -28,15 +28,4 @@ export class AuthController {
       accessToken: token,
     };
   }
-
-  // @Post('confirm')
-  // @HttpCode(200)
-  // async confirmEmail(@Query() query): Promise<string> {
-  //   const userId = query.userId;
-  //   await this.userService.confirmEmail(userId);
-  //   this.mailService.sendMail({
-  //     sender: process.env.MAIL_SENDER,
-  //   });
-  //   return 'Email confirmed';
-  // }
 }
