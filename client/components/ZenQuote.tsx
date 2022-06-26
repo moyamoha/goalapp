@@ -19,7 +19,7 @@ export default function ZenQuote() {
 		generateRandomInd();
 		const interval = setInterval(() => {
 			generateRandomInd();
-		}, 15000);
+		}, 20000);
 		return () => clearInterval(interval);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
