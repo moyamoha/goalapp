@@ -1,3 +1,4 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   NotFoundException,
@@ -18,6 +19,8 @@ export class UserService {
 
     @InjectModel(Goal.name)
     private goalModal: Model<GoalDocument>,
+
+    private mailService: MailerService,
   ) {}
 
   async createUser(userObj: Partial<UserDocument>): Promise<UserDocument> {
@@ -63,6 +66,17 @@ export class UserService {
       throw new NotFoundException();
     }
     await this.goalModal.deleteMany({ userId: user._id });
+    await this.mailService.sendMail({
+      from: process.env.EMAIL_SENDER,
+      to: user.email,
+      subject: 'Your account was DELETED',
+      html: `<strong>
+        Dear ${user.firstname}!
+      </strong><br></br>
+        <p>We are sad to see you leave, but you can create a new one anytime at
+        <a href="https://goalie.netlify.app">goail</a>
+      </p>`,
+    });
     return;
   }
 
