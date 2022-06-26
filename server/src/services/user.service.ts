@@ -73,8 +73,8 @@ export class UserService {
       html: `<strong>
         Dear ${user.firstname}!
       </strong><br></br>
-        <p>We are sad to see you leave, but you can create a new one anytime at
-        <a href="https://goalie.netlify.app">goail</a>
+        <p>We are sad to see you leave, but you can create a new one anytime
+        <a href="https://goalie.netlify.app">here</a>
       </p>`,
     });
     return;
