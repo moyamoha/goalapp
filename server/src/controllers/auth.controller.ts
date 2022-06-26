@@ -18,7 +18,7 @@ export class AuthController {
         lastname: user.lastname,
         email: user.email,
         dateOfBirth: user.dateOfBirth,
-        profile: user.profile,
+        monthsToDelete: user.monthsToDelete,
       },
       {
         secret: process.env.JWT_SECRET,

@@ -75,9 +75,10 @@ export class UserService {
       const mockUser = new this.userModal({ ...user, ...data });
       mockUser.password = testPass;
       await mockUser.validate();
-      return await this.userModal.findByIdAndUpdate(user._id, data, {
+      const updated = await this.userModal.findByIdAndUpdate(user._id, data, {
         new: true,
       });
+      return updated;
     } catch (e) {
       throw new BadRequestException(e, e.message);
     }

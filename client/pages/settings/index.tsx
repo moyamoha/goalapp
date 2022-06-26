@@ -30,7 +30,7 @@ export default function Settings() {
 	const [lastname, setLastname] = useState(user?.lastname || "");
 	const [dob, setDob] = useState(user?.dateOfBirth || "");
 	const [monthsToDelete, setMonthsToDelete] = useState(
-		user?.monthsToDelete || 6
+		user?.monthsToDelete ? user.monthsToDelete : 6
 	);
 	const [showDialog, setShowDialog] = useState(false);
 

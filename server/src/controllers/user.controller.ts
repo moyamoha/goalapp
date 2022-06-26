@@ -43,7 +43,7 @@ export class UserController {
   }
 
   @Get('confirm')
-  async sendTestEmail(@Query() query): Promise<string> {
+  async confirmEmail(@Query() query): Promise<string> {
     try {
       const userId = query.id;
       await this.userService.confirmEmail(userId);
@@ -68,6 +68,7 @@ export class UserController {
     @Body() body: Partial<UserDocument>,
   ) {
     const updated = await this.userService.editUser(req.user, body);
+    console.log(updated);
     return {
       email: updated.email,
       firstname: updated.firstname,
