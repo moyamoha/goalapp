@@ -7,7 +7,7 @@ import store, { persistor } from "../state/store";
 
 import "@styles/globals.css";
 
-axios.defaults.baseURL = "http://goal-tracker-yahya.herokuapp.com/";
+axios.defaults.baseURL = "https://goal-tracker-yahya.herokuapp.com/";
 axios.interceptors.request.use((request) => {
 	const token = localStorage.getItem("accessToken");
 	if (token) {
