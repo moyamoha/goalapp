@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Router from "next/router";
+
 import { IUserDoc } from "../types";
 
 type InitialStateType = {

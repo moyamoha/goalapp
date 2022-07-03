@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
+
 import GoalCard from "@components/GoalCard";
 import Layout from "@components/Layout";
 import {
@@ -8,6 +9,7 @@ import {
 	useRedirectIfUnauthorized,
 } from "../../state/hooks";
 import { getAll } from "../../state/thunks/goals.thunk";
+
 import homeStyles from "@styles/Home.module.css";
 
 export default function Home() {

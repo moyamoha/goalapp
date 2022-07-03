@@ -1,9 +1,9 @@
-import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
+import Router from "next/router";
+
 import { setGoals, setLoading } from "../slices/goals.slice";
 import IStore, { AppDispatch, IGoalDoc } from "../types";
 import { replaceGoal, addGoal, removeGoal } from "../slices/goals.slice";
-import Router from "next/router";
 
 export const getAll = () => {
 	return async (dispatch: AppDispatch) => {

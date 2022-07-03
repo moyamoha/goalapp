@@ -9,14 +9,11 @@ import FormStrField from "@components/FormStrField";
 import Layout from "@components/Layout";
 import DeleteAccountDialog from "@components/DeleteAccountDialog";
 import BackBtn from "@components/BackBtn";
-import { getDateFieldValue } from "../../utils";
 import { updateUser } from "../../state/thunks/auth.thunk";
 import ErrorAlert from "@components/ErrorAlert";
 
 import authStyles from "@styles/AuthLayout.module.css";
 import globalStyles from "@styles/Globals.module.css";
-
-const validDeletionPeriods = [3, 6, 12];
 
 export default function Settings() {
 	const dispatch = useAppDispatch();

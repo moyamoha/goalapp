@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IGoalDoc } from "../types";
 
 interface IQuote {
 	text: string;

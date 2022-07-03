@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import IStore, { AppDispatch } from "../types";
 import { setQuotes } from "state/slices/quotes.slice";
 
