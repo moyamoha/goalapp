@@ -15,7 +15,6 @@ export class AuthService {
     try {
       const user = await this.userModal.findOne({ email: email });
       if (user && (await bcrypt.compare(password, user.password))) {
-        user.lastLoggedIn = new Date();
         return await user.save();
       }
     } catch (e) {

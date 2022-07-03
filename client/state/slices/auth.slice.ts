@@ -5,13 +5,11 @@ import { IUserDoc } from "../types";
 type InitialStateType = {
 	user: IUserDoc | null;
 	authError: string;
-	showConfirmPage: boolean;
 };
 
 const initialState: InitialStateType = {
 	user: null,
 	authError: "",
-	showConfirmPage: false,
 };
 
 const authSlice = createSlice({
@@ -30,12 +28,8 @@ const authSlice = createSlice({
 		setAuthError: (state, action: PayloadAction<string>) => {
 			state.authError = action.payload;
 		},
-		setShowConfirmPage: (state, action: PayloadAction<boolean>) => {
-			state.showConfirmPage = action.payload;
-		},
 	},
 });
 
-export const { setUser, logout, setAuthError, setShowConfirmPage } =
-	authSlice.actions;
+export const { setUser, logout, setAuthError } = authSlice.actions;
 export default authSlice.reducer;

@@ -19,7 +19,6 @@ export default function SignupForm() {
 	const [lastname, setLastname] = useState("");
 	const [password1, setPassword1] = useState("");
 	const [password2, setPassword2] = useState("");
-	const [dob, setDob] = useState("");
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -33,7 +32,6 @@ export default function SignupForm() {
 				firstname: firstname,
 				lastname: lastname,
 				password: password1,
-				dateOfBirth: dob,
 			})
 		);
 	};
@@ -66,14 +64,6 @@ export default function SignupForm() {
 					type="text"
 				></FormStrField>
 			</section>
-			<FormStrField
-				id="dob"
-				label="Date of birth"
-				required
-				value={dob}
-				setValue={setDob}
-				type="date"
-			></FormStrField>
 			<section className={globalStyles.formRow}>
 				<PasswordField
 					id="pass1"

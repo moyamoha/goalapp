@@ -28,10 +28,6 @@ export default function Settings() {
 	const [email, setEmail] = useState(user?.email || "");
 	const [firstname, setFirstname] = useState(user?.firstname || "");
 	const [lastname, setLastname] = useState(user?.lastname || "");
-	const [dob, setDob] = useState(user?.dateOfBirth || "");
-	const [monthsToDelete, setMonthsToDelete] = useState(
-		user?.monthsToDelete ? user.monthsToDelete : 6
-	);
 	const [showDialog, setShowDialog] = useState(false);
 
 	const handleSubmit = (e: any) => {
@@ -41,8 +37,6 @@ export default function Settings() {
 				email: email,
 				firstname: firstname,
 				lastname: lastname,
-				dateOfBirth: dob,
-				monthsToDelete: monthsToDelete,
 			})
 		);
 	};
@@ -79,30 +73,6 @@ export default function Settings() {
 						type="text"
 					></FormStrField>
 				</section>
-				<FormStrField
-					id="dob"
-					label="Date of birth"
-					required
-					value={getDateFieldValue(dob)}
-					setValue={setDob}
-					type="date"
-				></FormStrField>
-				<div className={globalStyles.formLine}>
-					<label>Delete account if inactive for (months)</label>
-					<select
-						onChange={(e) =>
-							setMonthsToDelete(parseInt(e.target.value) as 3 | 6 | 12)
-						}
-						className={globalStyles.customSelect + " " + globalStyles.input}
-						value={monthsToDelete}
-					>
-						{validDeletionPeriods.map((item) => (
-							<option key={item} value={item} className={globalStyles.input}>
-								{item}
-							</option>
-						))}
-					</select>
-				</div>
 				{authError !== "" ? (
 					<ErrorAlert message={authError}></ErrorAlert>
 				) : (

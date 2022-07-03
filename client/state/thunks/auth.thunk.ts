@@ -2,12 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 import jwtDecode from "jwt-decode";
 
-import {
-	logout,
-	setAuthError,
-	setShowConfirmPage,
-	setUser,
-} from "../slices/auth.slice";
+import { logout, setAuthError, setUser } from "../slices/auth.slice";
 import IStore, { AppDispatch, IUserDoc } from "../types";
 
 interface IDecodedToken extends Partial<IUserDoc> {
@@ -32,12 +27,12 @@ export const login = (credintials: { email: string; password: string }) => {
 	};
 };
 
-export const registerUser = (userData: UserRegData) => {
+export const registerUser = (userData: UserReqData) => {
+	console.log(userData);
 	return async (dispatch: AppDispatch, getState: () => IStore) => {
 		try {
 			await axios.post("/users", userData);
-			dispatch(setShowConfirmPage(true));
-			Router.replace("/confirm-your-email");
+			Router.push("/login");
 		} catch (e: any) {
 			dispatch(setAuthError(e.response.data.message));
 		}
@@ -72,10 +67,9 @@ export const deleteAccount = () => {
 	};
 };
 
-type UserRegData = {
+type UserReqData = {
 	email: string;
 	password: string;
 	lastname: string;
 	firstname: string;
-	dateOfBirth: string;
 };

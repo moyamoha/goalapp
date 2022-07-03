@@ -18,9 +18,6 @@ export interface IUserDoc {
 	email: string;
 	firstname: string;
 	lastname: string;
-	dateOfBirth: string;
-	monthsToDelete?: 3 | 6 | 12;
-	emailConfirmed: boolean;
 }
 
 export type IStore = ReturnType<typeof store.getState>;

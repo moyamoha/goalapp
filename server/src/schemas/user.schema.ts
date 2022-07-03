@@ -26,18 +26,6 @@ export class User {
     },
   })
   password: string;
-
-  @Prop({ required: true })
-  dateOfBirth: Date;
-
-  @Prop({ required: false })
-  lastLoggedIn: Date;
-
-  @Prop({ required: false, default: 6, type: Number, enum: [3, 6, 12] })
-  monthsToDelete: number;
-
-  @Prop({ required: false, default: false })
-  emailConfirmed: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
