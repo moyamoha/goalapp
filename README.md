@@ -19,4 +19,4 @@ I am an ambitious person. I love to have goals and even more achieving them. Tha
 4. Github actions
 
 ## Impressive? See it in action:
-[here](https://goalie.yahyasalimi.com)
+[here](https://goals.yahyasalimi.com)
