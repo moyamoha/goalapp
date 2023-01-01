@@ -7,25 +7,25 @@ import store, { persistor } from "../state/store";
 
 import "@styles/globals.css";
 
-axios.defaults.baseURL = "https://goal-tracker-yahya.herokuapp.com/";
+axios.defaults.baseURL = "https://goalapp.onrender.com/";
 axios.interceptors.request.use((request) => {
-	const token = localStorage.getItem("accessToken");
-	if (token) {
-		request.headers = {
-			Authorization: `Bearer ${token}`,
-		};
-	}
-	return request;
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    request.headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  }
+  return request;
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<Provider store={store}>
-			<PersistGate persistor={persistor} loading={null}>
-				<Component {...pageProps} />
-			</PersistGate>
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <Component {...pageProps} />
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default MyApp;
