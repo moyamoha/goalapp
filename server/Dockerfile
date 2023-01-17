@@ -5,9 +5,9 @@ WORKDIR /app/nestjs
 EXPOSE 4000
 COPY . /app/nestjs
 
-RUN yarn
-RUN yarn build
+RUN npm install
+RUN npm run build
 
 USER 1000
 
-CMD ["yarn", "start:prod"]
+CMD ["npm", "run", "start:prod"]

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoDocument } from 'src/schemas/todo.schema';
@@ -10,5 +10,15 @@ export class TodoService {
 
   async getAll(user: UserDocument): Promise<TodoDocument[]> {
     return this.todoModel.find({ owner: user._id });
+  }
+
+  async createTodo(
+    user: UserDocument,
+    todo: Partial<Todo>,
+  ): Promise<TodoDocument> {
+    try {
+      const t = new this.todoModel({ ...todo, owner: user._id });
+      return await t.save();
+    } catch (e) {}
   }
 }

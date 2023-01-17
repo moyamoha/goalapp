@@ -6,6 +6,7 @@ import { GoalModule } from './goal.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user.module';
 import { AuthModule } from './auth.module';
+import { TodoModule } from './todo.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AuthModule } from './auth.module';
     GoalModule,
     UserModule,
     AuthModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
