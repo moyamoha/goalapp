@@ -21,6 +21,9 @@ export class Todo {
 
   @Prop({ ref: 'Goal' })
   goalId: mongoose.Types.ObjectId;
+
+  @Prop({ ref: 'User' })
+  owner: mongoose.Types.ObjectId;
 }
 
 export const TodoSchema = SchemaFactory.createForClass(Todo);
