@@ -8,6 +8,4 @@ COPY . /app/nestjs
 RUN npm install
 RUN npm run build
 
-USER 1000
-
 CMD ["npm", "run", "start:prod"]

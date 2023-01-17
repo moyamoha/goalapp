@@ -20,7 +20,10 @@ export class GoalService {
     return goals;
   }
 
-  async getGoal(user: UserDocument, goalId): Promise<GoalDocument | null> {
+  async getGoal(
+    user: UserDocument,
+    goalId: string,
+  ): Promise<GoalDocument | null> {
     const goal = await this.goalModal.findById(goalId);
     if (!goal) {
       throw new NotFoundException('The specified goal was not found');
