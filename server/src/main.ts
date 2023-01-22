@@ -21,7 +21,7 @@ async function bootstrap() {
     .addTag('authentication')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/', app, document);
   await app.listen(process.env.PORT || 44444);
 }
 bootstrap();

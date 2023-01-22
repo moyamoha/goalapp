@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from '../controllers/app.controller';
-import { AppService } from '../services/app.service';
 import { GoalModule } from './goal.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user.module';
@@ -21,7 +19,7 @@ import { TodoModule } from './todo.module';
     AuthModule,
     TodoModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -12,6 +12,7 @@ import { Post } from '@nestjs/common/decorators/http/request-mapping.decorator';
 import { Body } from '@nestjs/common/decorators/http/route-params.decorator';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiQuery,
   ApiResponse,
   ApiTags,
@@ -19,7 +20,11 @@ import {
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { TodoDocument } from 'src/schemas/todo.schema';
 import { TodoService } from 'src/services/todo.service';
-import { getTodosGoalIdQuery, getTodosOkResponse } from 'src/swagger/todo';
+import {
+  createTodoRequestPayload,
+  getTodosGoalIdQuery,
+  getTodosOkResponse,
+} from 'src/swagger/todo';
 import { CustomRequest } from 'src/types/custom';
 
 @Controller('todos')
@@ -42,6 +47,7 @@ export class TodoController {
 
   @Post()
   @HttpCode(201)
+  @ApiBody(createTodoRequestPayload)
   async createTodo(
     @Req() req: CustomRequest,
     @Body() todo: Partial<TodoDocument>,

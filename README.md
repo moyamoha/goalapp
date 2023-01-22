@@ -16,8 +16,7 @@ I am an ambitious person. I love to have goals and even more achieving them. Tha
 1. React (Nextjs)
 2. Nestjs (Nestjs/schedule)
 3. MongoDb
-4. Github actions
 
 ## Impressive? See it in action:
 
-[here](https://goals.yahyasalimi.com)
+[here](https://ahdaf.yahyasalimi.com)
