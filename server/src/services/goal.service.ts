@@ -1,13 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 
 import { UserDocument } from 'src/schemas/user.schema';
 import { Goal, GoalDocument } from 'src/schemas/goal.schema';
+import { throwExceptionIfItemNotFoundOrForbidden } from 'src/utils/exceptions';
 
 @Injectable()
 export class GoalService {
@@ -16,7 +13,7 @@ export class GoalService {
     private goalModal: Model<GoalDocument>,
   ) {}
   async getAll(user: UserDocument): Promise<GoalDocument[]> {
-    const goals = await this.goalModal.find({ userId: user._id });
+    const goals = await this.goalModal.find({ owner: user._id });
     return goals;
   }
 
@@ -25,9 +22,7 @@ export class GoalService {
     goalId: string,
   ): Promise<GoalDocument | null> {
     const goal = await this.goalModal.findById(goalId);
-    if (!goal) {
-      throw new NotFoundException('The specified goal was not found');
-    }
+    throwExceptionIfItemNotFoundOrForbidden(user, goal);
     return goal;
   }
 
@@ -46,14 +41,10 @@ export class GoalService {
     }
   }
 
-  async deleteGoal(user: UserDocument, goalId: string) {
-    const deletedGoal = await this.goalModal.findOneAndDelete({
-      userId: user._id,
-      _id: new mongoose.Types.ObjectId(goalId),
-    });
-    if (!deletedGoal) {
-      throw new NotFoundException('The specified goal was not found');
-    }
+  async deleteGoal(user: UserDocument, goalId: string): Promise<void> {
+    const goalToDelete = await this.goalModal.findById(goalId);
+    throwExceptionIfItemNotFoundOrForbidden(user, goalToDelete);
+    await goalToDelete.deleteOne();
   }
 
   async editGoal(
@@ -64,10 +55,10 @@ export class GoalService {
     try {
       await this.goalModal.findOneAndDelete({
         _id: new mongoose.Types.ObjectId(goalId),
-        userId: new mongoose.Types.ObjectId(user._id),
+        owner: new mongoose.Types.ObjectId(user._id),
       });
       const newGoal = new this.goalModal(goal);
-      newGoal.userId = new mongoose.Types.ObjectId(goal.userId);
+      newGoal.owner = new mongoose.Types.ObjectId(goal.owner);
       return await newGoal.save();
     } catch (e) {
       throw new BadRequestException(e);

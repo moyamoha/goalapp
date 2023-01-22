@@ -30,11 +30,11 @@ export class GoalController {
 
   @UseGuards(JwtAuthGaurd)
   @Get(':id')
-  async getGoal(@Req() req: any, @Param() params): Promise<GoalDocument> {
-    const goal = await this.goalService.getGoal(
-      req.user as UserDocument,
-      params.id,
-    );
+  async getGoal(
+    @Req() req: CustomRequest,
+    @Param() params,
+  ): Promise<GoalDocument> {
+    const goal = await this.goalService.getGoal(req.user, params.id);
     return goal;
   }
 
