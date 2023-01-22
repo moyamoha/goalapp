@@ -12,12 +12,25 @@ import {
 } from '@nestjs/common';
 
 import { UserDocument } from 'src/schemas/user.schema';
-import { GoalDocument } from 'src/schemas/goal.schema';
+import { Goal, GoalDocument, GoalSchema } from 'src/schemas/goal.schema';
 import { GoalService } from 'src/services/goal.service';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { CustomRequest } from 'src/types/custom';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiResponse,
+  ApiTags,
+  PartialType,
+} from '@nestjs/swagger/dist';
+import {
+  createdGoalResponse,
+  createGoalRequestPayload,
+} from 'src/swagger/goal';
 
 @Controller('goals')
+@ApiBearerAuth('jwt')
+@ApiTags('goals')
 export class GoalController {
   constructor(private readonly goalService: GoalService) {}
 
@@ -41,14 +54,16 @@ export class GoalController {
   @UseGuards(JwtAuthGaurd)
   @Delete(':id')
   @HttpCode(204)
-  async deleteGoal(@Req() req: CustomRequest, @Param() params) {
-    await this.goalService.deleteGoal(req.user, params.id);
+  async deleteGoal(@Req() req: CustomRequest, @Param('id') id: string) {
+    await this.goalService.deleteGoal(req.user, id);
   }
 
   @UseGuards(JwtAuthGaurd)
   @Post()
+  @ApiBody(createGoalRequestPayload)
+  @ApiResponse(createdGoalResponse)
   async createGoal(
-    @Req() req: any,
+    @Req() req: CustomRequest,
     @Body() body: GoalDocument,
   ): Promise<GoalDocument> {
     return await this.goalService.createGoal(req.user as UserDocument, body);
@@ -57,14 +72,10 @@ export class GoalController {
   @UseGuards(JwtAuthGaurd)
   @Put(':id')
   async editGoal(
-    @Req() req: any,
-    @Param() params,
+    @Req() req: CustomRequest,
+    @Param('id') id: string,
     @Body() body: GoalDocument,
   ): Promise<GoalDocument> {
-    return await this.goalService.editGoal(
-      req.user as UserDocument,
-      params.id,
-      body,
-    );
+    return await this.goalService.editGoal(req.user as UserDocument, id, body);
   }
 }

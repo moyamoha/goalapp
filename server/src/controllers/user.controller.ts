@@ -8,6 +8,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger/dist';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 
 import { UserDocument } from 'src/schemas/user.schema';
@@ -15,6 +17,7 @@ import { UserService } from 'src/services/user.service';
 import { CustomRequest } from 'src/types/custom';
 
 @Controller('users')
+@ApiTags('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -24,6 +27,7 @@ export class UserController {
     await this.userService.createUser(body);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGaurd)
   @Delete('')
   @HttpCode(204)

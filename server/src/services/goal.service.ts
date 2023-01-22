@@ -33,7 +33,7 @@ export class GoalService {
     try {
       const newGoal = new this.goalModal({
         ...body,
-        userId: new mongoose.Types.ObjectId(user._id),
+        owner: new mongoose.Types.ObjectId(user._id),
       });
       return await newGoal.save();
     } catch (e) {

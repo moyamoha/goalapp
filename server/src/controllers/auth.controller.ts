@@ -1,9 +1,11 @@
 import { Controller, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ApiTags } from '@nestjs/swagger/dist';
 
 import { LocalAuthGaurd } from 'src/config/local.guard';
 
 @Controller('auth')
+@ApiTags('authentication')
 export class AuthController {
   constructor(private jwtService: JwtService) {}
 

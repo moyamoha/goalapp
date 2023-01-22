@@ -19,7 +19,7 @@ export class Todo {
   @Prop({ default: TodoStatus.DRAFT, required: true })
   status: TodoStatus;
 
-  @Prop({ required: false })
+  @Prop({ required: false, type: Date })
   completedAt: string | Date;
 
   @Prop({ ref: 'Goal' })
