@@ -9,7 +9,7 @@ export const throwExceptionIfItemNotFoundOrForbidden = <T extends IEntity>(
 ) => {
   if (!item) {
     throw new NotFoundException(
-      `${item.modelName} with id of ${item._id} was not found`,
+      `${item.$model.name} with id of ${item._id} was not found`,
     );
   }
   if (item.owner.toString() !== user._id.toString()) {

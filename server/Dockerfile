@@ -6,6 +6,6 @@ EXPOSE 4000
 COPY . /app/nestjs
 
 RUN yarn
-RUN yarn build
+RUN yarn run build
 
-CMD ["npm", "start:prod"]
+CMD ["npm", "run", "start:prod"]
