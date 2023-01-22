@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { Goal, GoalSchema } from 'src/schemas/goal.schema';
+import { Goal } from 'src/schemas/goal.schema';
 
 export const createGoalRequestPayload = {
   type: PartialType(Goal),
@@ -7,11 +7,11 @@ export const createGoalRequestPayload = {
   required: true,
 };
 
-const exampleGoal = {
-  title: 'string',
-  description: 'string',
-  dateCreated: '2023-01-22T12:27:23.069Z',
-};
+// const exampleGoal = {
+//   title: 'string',
+//   description: 'string',
+//   dateCreated: '2023-01-22T12:27:23.069Z',
+// };
 
 export const createdGoalResponse = {
   status: 201,

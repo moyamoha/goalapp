@@ -16,10 +16,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger/dist';
-import { userInfo } from 'os';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
-import { Todo, TodoDocument } from 'src/schemas/todo.schema';
-import { UserDocument } from 'src/schemas/user.schema';
+import { TodoDocument } from 'src/schemas/todo.schema';
 import { TodoService } from 'src/services/todo.service';
 import { getTodosGoalIdQuery, getTodosOkResponse } from 'src/swagger/todo';
 import { CustomRequest } from 'src/types/custom';

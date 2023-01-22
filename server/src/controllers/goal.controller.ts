@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 import { UserDocument } from 'src/schemas/user.schema';
-import { Goal, GoalDocument, GoalSchema } from 'src/schemas/goal.schema';
+import { GoalDocument } from 'src/schemas/goal.schema';
 import { GoalService } from 'src/services/goal.service';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { CustomRequest } from 'src/types/custom';
@@ -21,7 +21,6 @@ import {
   ApiBody,
   ApiResponse,
   ApiTags,
-  PartialType,
 } from '@nestjs/swagger/dist';
 import {
   createdGoalResponse,
