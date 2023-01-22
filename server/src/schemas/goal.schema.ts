@@ -37,7 +37,7 @@ export class Goal {
   targetDate?: Date;
 
   @Prop({ ref: 'User' })
-  userId: mongoose.Types.ObjectId;
+  owner: mongoose.Types.ObjectId;
 }
 
 export const GoalSchema = SchemaFactory.createForClass(Goal);

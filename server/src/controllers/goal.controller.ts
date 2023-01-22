@@ -15,6 +15,7 @@ import { UserDocument } from 'src/schemas/user.schema';
 import { GoalDocument } from 'src/schemas/goal.schema';
 import { GoalService } from 'src/services/goal.service';
 import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
+import { CustomRequest } from 'src/types/custom';
 
 @Controller('goals')
 export class GoalController {
@@ -40,8 +41,8 @@ export class GoalController {
   @UseGuards(JwtAuthGaurd)
   @Delete(':id')
   @HttpCode(204)
-  async deleteGoal(@Req() req: any, @Param() params) {
-    await this.goalService.deleteGoal(req.user as UserDocument, params.id);
+  async deleteGoal(@Req() req: CustomRequest, @Param() params) {
+    await this.goalService.deleteGoal(req.user, params.id);
   }
 
   @UseGuards(JwtAuthGaurd)

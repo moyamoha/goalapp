@@ -19,6 +19,9 @@ export class Todo {
   @Prop({ default: TodoStatus.DRAFT, required: true })
   status: TodoStatus;
 
+  @Prop({ required: false })
+  completedAt: string | Date;
+
   @Prop({ ref: 'Goal' })
   goalId: mongoose.Types.ObjectId;
 
