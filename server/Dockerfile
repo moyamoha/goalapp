@@ -8,4 +8,4 @@ COPY . /app/nestjs
 RUN yarn
 RUN yarn build
 
-CMD ["yarn", "start:prod"]
+CMD ["npm", "start:prod"]
