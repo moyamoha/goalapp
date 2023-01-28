@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common/exceptions';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoDocument } from 'src/schemas/todo.schema';
@@ -37,14 +38,19 @@ export class TodoService {
     } catch (e) {}
   }
 
-  async markTodoAsCompleted(
+  async changeTodoStatus(
     user: UserDocument,
     id: string,
+    newStatus: TodoStatus,
   ): Promise<TodoDocument> {
     const todo = await this.todoModel.findById(id).populate('goalId');
     throwExceptionIfItemNotFoundOrForbidden(user, todo);
-    todo.status = TodoStatus.COMPLETED;
-    return await todo.save();
+    try {
+      todo.status = newStatus;
+      return await todo.save();
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
   async deleteTodo(user: UserDocument, id: string): Promise<void> {

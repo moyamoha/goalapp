@@ -25,16 +25,29 @@ export const getTodosOkResponse = {
   status: 200,
   description: 'all the todos',
   type: Todo,
-  // example: {
-  //   todos: [{
-  //     title: ''
-  //   }]
-  // }
+  example: {
+    value: exampleTodoComplete,
+  },
   isArray: true,
 };
 
 export const createTodoRequestPayload = {
   description: 'Todo data that is being created',
+  examples: {
+    body: {
+      value: {
+        title: 'string',
+        description: 'string',
+        status: 'string',
+        goalId: 'string',
+      },
+    },
+  },
+};
+
+export const changeTodoStatusRequestPayload = {
+  description:
+    'Change the status of todo to completed, draft, cancelled or ongoing',
   examples: {
     body: {
       value: {

@@ -8,7 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { HttpCode } from '@nestjs/common/decorators';
-import { Post } from '@nestjs/common/decorators/http/request-mapping.decorator';
+import {
+  Patch,
+  Post,
+} from '@nestjs/common/decorators/http/request-mapping.decorator';
 import { Body } from '@nestjs/common/decorators/http/route-params.decorator';
 import {
   ApiBearerAuth,
@@ -21,11 +24,12 @@ import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { TodoDocument } from 'src/schemas/todo.schema';
 import { TodoService } from 'src/services/todo.service';
 import {
+  changeTodoStatusRequestPayload,
   createTodoRequestPayload,
   getTodosGoalIdQuery,
   getTodosOkResponse,
 } from 'src/swagger/todo';
-import { CustomRequest } from 'src/types/custom';
+import { changeStatusPayload, CustomRequest } from 'src/types/custom';
 
 @Controller('todos')
 @ApiBearerAuth('jwt')
@@ -75,5 +79,17 @@ export class TodoController {
   ): Promise<void> {
     await this.todoService.deleteTodo(req.user, id);
     return;
+  }
+
+  @UseGuards(JwtAuthGaurd)
+  @Patch(':id/change-status')
+  @HttpCode(204)
+  @ApiBody(changeTodoStatusRequestPayload)
+  async changeTodoStatus(
+    @Req() req: CustomRequest,
+    @Body() body: changeStatusPayload,
+    @Param('id') id: string,
+  ): Promise<void> {
+    await this.todoService.changeTodoStatus(req.user, id, body.status);
   }
 }
