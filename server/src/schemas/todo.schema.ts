@@ -10,11 +10,11 @@ export class Todo {
   @Prop({ required: true })
   title: string;
 
-  @Prop()
+  @Prop({ required: false })
   description?: string;
 
   @Prop({ default: new Date() })
-  dateCreated?: Date;
+  dateCreated: Date;
 
   @Prop({ default: TodoStatus.DRAFT, required: true })
   status: TodoStatus;
