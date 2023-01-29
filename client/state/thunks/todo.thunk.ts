@@ -1,10 +1,11 @@
 import {
+  addTodo,
   removeTodo,
   setLoadingTodos,
   setTodoError,
   setTodos,
 } from "@state/slices/todo.slice";
-import IStore, { AppDispatch } from "@state/types";
+import IStore, { AppDispatch, ITodoDoc, TodoStatus } from "@state/types";
 import axios from "axios";
 
 export const getAll = () => {
@@ -28,6 +29,19 @@ export const deleteTodo = (todoId: string) => {
       }
       await axios.delete("/todos/" + todoId);
       dispatch(removeTodo(i));
+    } catch (e) {}
+  };
+};
+
+export const createTodo = (goalId: string, todo: Partial<ITodoDoc>) => {
+  return async (dispatch: AppDispatch, getState: () => IStore) => {
+    try {
+      const response = await axios.post(`/todos/`, {
+        ...todo,
+        status: TodoStatus.DRAFT,
+        goalId: goalId,
+      });
+      dispatch(addTodo(response.data));
     } catch (e) {}
   };
 };
