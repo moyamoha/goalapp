@@ -32,12 +32,12 @@ import {
 import { changeStatusPayload, CustomRequest } from 'src/types/custom';
 
 @Controller('todos')
+@UseGuards(JwtAuthGaurd)
 @ApiBearerAuth('jwt')
 @ApiTags('todos')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  @UseGuards(JwtAuthGaurd)
   @Get()
   @ApiQuery(getTodosGoalIdQuery)
   @ApiResponse(getTodosOkResponse)
@@ -54,13 +54,13 @@ export class TodoController {
   @ApiBody(createTodoRequestPayload)
   async createTodo(
     @Req() req: CustomRequest,
-    @Body() todo: Partial<TodoDocument>,
+    @Body() todo: TodoDocument,
   ): Promise<TodoDocument> {
     const createdTodo = await this.todoService.createTodo(req.user, todo);
+
     return createdTodo;
   }
 
-  @UseGuards(JwtAuthGaurd)
   @Get(':id')
   async getTodo(
     @Req() req: CustomRequest,
@@ -70,7 +70,6 @@ export class TodoController {
     return todo;
   }
 
-  @UseGuards(JwtAuthGaurd)
   @Delete(':id')
   @HttpCode(204)
   async deleteTodo(
@@ -81,7 +80,6 @@ export class TodoController {
     return;
   }
 
-  @UseGuards(JwtAuthGaurd)
   @Patch(':id/change-status')
   @HttpCode(204)
   @ApiBody(changeTodoStatusRequestPayload)

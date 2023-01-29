@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { InjectModel } from '@nestjs/mongoose';
-import { create } from 'domain';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { Todo, TodoDocument } from 'src/schemas/todo.schema';
 import { TodoStatus } from 'src/schemas/TodoStatus';
 import { UserDocument } from 'src/schemas/user.schema';
@@ -19,6 +20,7 @@ export class TodoService {
     const todos = goalId
       ? await this.todoModel.find({ owner: user._id, goalId: goalId })
       : await this.todoModel.find({ owner: user._id });
+    console.log(todos);
     return todos;
   }
 
@@ -30,13 +32,19 @@ export class TodoService {
 
   async createTodo(
     user: UserDocument,
-    todo: Partial<Todo>,
+    todo: TodoDocument,
   ): Promise<TodoDocument> {
     try {
-      const t = new this.todoModel({ ...todo, owner: user._id });
-      const created = await t.save();
-      return created;
-    } catch (e) {}
+      const t = new this.todoModel({
+        ...todo,
+        owner: new mongoose.Types.ObjectId(user._id),
+        status: TodoStatus.DRAFT,
+        dateCreated: new Date(),
+      });
+      return await t.save();
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
   async changeTodoStatus(
