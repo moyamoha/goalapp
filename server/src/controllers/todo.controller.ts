@@ -57,7 +57,6 @@ export class TodoController {
     @Body() todo: TodoDocument,
   ): Promise<TodoDocument> {
     const createdTodo = await this.todoService.createTodo(req.user, todo);
-
     return createdTodo;
   }
 

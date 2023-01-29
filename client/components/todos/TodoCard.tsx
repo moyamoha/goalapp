@@ -3,9 +3,9 @@ import React from "react";
 import { ITodoDoc } from "@state/types";
 
 import CardStyles from "@styles/Card.module.css";
-import TodoStatusChip from "./TodoStatusChip";
 import { BiTrash } from "react-icons/bi";
 import SmartLink from "@components/SmartLink";
+import { getTodoStatusColor } from "./todoColor";
 
 export default function TodoCard({ todo }: { todo: ITodoDoc }) {
   const handleClickTrash = () => {};
@@ -17,7 +17,12 @@ export default function TodoCard({ todo }: { todo: ITodoDoc }) {
         Created at: {new Date(todo.dateCreated).toLocaleString()}
       </span>
       {todo.description ? <p>{todo.description}</p> : <></>}
-      <TodoStatusChip status={todo.status}></TodoStatusChip>
+      <span>
+        Status:{" "}
+        <span style={{ color: getTodoStatusColor(todo.status) }}>
+          {todo.status}
+        </span>
+      </span>
       <span>
         <SmartLink
           href={`/goals/${todo._id}`}

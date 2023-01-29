@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UseGuards } from '@nestjs/common/decorators';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { JwtAuthGaurd } from 'src/config/jwt.gaurd';
 import { Todo, TodoDocument } from 'src/schemas/todo.schema';
 import { TodoStatus } from 'src/schemas/TodoStatus';
 import { UserDocument } from 'src/schemas/user.schema';
@@ -56,6 +54,9 @@ export class TodoService {
     throwExceptionIfItemNotFoundOrForbidden(user, todo);
     try {
       todo.status = newStatus;
+      if (newStatus === TodoStatus.COMPLETED) {
+        todo.completedAt = new Date();
+      }
       return await todo.save();
     } catch (e) {
       throw new BadRequestException(e);

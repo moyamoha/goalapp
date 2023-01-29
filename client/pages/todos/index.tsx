@@ -19,16 +19,16 @@ export default function Todos() {
 
   return (
     <Layout>
-      <div>
+      <h2>All your todos</h2>
+      <div style={{ width: "60%", padding: "10px" }}>
         {todos.length > 0 ? (
           <>
-            <span>All your todos</span>
             {todos.map((t) => (
               <TodoCard key={t._id} todo={t}></TodoCard>
             ))}
           </>
         ) : (
-          <>No todos</>
+          <span>No todos</span>
         )}
       </div>
     </Layout>
