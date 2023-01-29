@@ -9,14 +9,14 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<IStore> = useSelector;
 
 export const useRedirectIfUnauthorized = () => {
-	const user = useAppSelector((s) => s.auth.user);
-	const router = useRouter();
-	useEffect(
-		function () {
-			if (!user) {
-				router.replace("/login");
-			}
-		},
-		[user, router]
-	);
+  const user = useAppSelector((s) => s.auth.user);
+  const router = useRouter();
+  useEffect(
+    function () {
+      if (!user) {
+        router.replace("/login");
+      }
+    },
+    [user, router]
+  );
 };

@@ -18,6 +18,16 @@ export const getAll = () => {
   };
 };
 
+export const getTodosOfAGoal = (goalId: string) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(setLoadingTodos(true));
+    try {
+      const response = await axios.get("/todos?goalId=" + goalId);
+      dispatch(setTodos(response.data));
+    } catch (e) {}
+  };
+};
+
 export const deleteTodo = (todoId: string) => {
   return async (dispatch: AppDispatch, getState: () => IStore) => {
     try {

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { InjectModel } from '@nestjs/mongoose';
+import { create } from 'domain';
 import { Model } from 'mongoose';
 import { Todo, TodoDocument } from 'src/schemas/todo.schema';
 import { TodoStatus } from 'src/schemas/TodoStatus';
@@ -34,7 +35,7 @@ export class TodoService {
     try {
       const t = new this.todoModel({ ...todo, owner: user._id });
       const created = await t.save();
-      return created.populate('goalId');
+      return created;
     } catch (e) {}
   }
 

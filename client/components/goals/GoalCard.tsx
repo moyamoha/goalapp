@@ -7,7 +7,7 @@ import { IGoalDoc } from "@state/types";
 import SmartLink from "../SmartLink";
 
 import globalStyles from "@styles/Globals.module.css";
-import goalCardStyles from "@styles/GoalCard.module.css";
+import CardStyles from "@styles/Card.module.css";
 import Celebrate from "../Celebrate";
 
 export default function GoalCard({ goal }: { goal: IGoalDoc }) {
@@ -20,7 +20,7 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
   };
 
   return (
-    <div className={goalCardStyles.card}>
+    <div className={CardStyles.card}>
       <strong>{goal.title}</strong>
       <span style={{ color: "#777", fontSize: "0.9rem" }}>
         Created at: {new Date(goal.dateCreated).toLocaleString()}
@@ -50,7 +50,7 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
       </span>
       <BiTrash
         onClick={handleTrashClick}
-        className={goalCardStyles.deleteIcon}
+        className={CardStyles.deleteIcon}
         size={21}
       />
       {goal.reached ? <Celebrate></Celebrate> : <></>}
