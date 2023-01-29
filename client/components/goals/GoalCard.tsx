@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 
 import { useAppDispatch } from "@state/hooks";
@@ -9,18 +9,24 @@ import SmartLink from "../SmartLink";
 import globalStyles from "@styles/Globals.module.css";
 import CardStyles from "@styles/Card.module.css";
 import Celebrate from "../Celebrate";
+import ConfirmDeletionDialog from "@components/_shared/ConfirmDeletionDialog";
 
 export default function GoalCard({ goal }: { goal: IGoalDoc }) {
   const dispatch = useAppDispatch();
+  const [showDeletionDialog, setShowDeletionDialog] = useState(false);
 
-  const handleTrashClick = () => {
-    if (window.confirm('Delete "' + goal.title + '"?')) {
-      dispatch(deleteGoal(goal._id));
-    } else return;
+  const handleDelete = () => {
+    dispatch(deleteGoal(goal._id));
   };
 
   return (
     <div className={CardStyles.card}>
+      <ConfirmDeletionDialog
+        showDialog={showDeletionDialog}
+        setShowDialog={setShowDeletionDialog}
+        identifier={`"${goal.title}"`}
+        onDelete={handleDelete}
+      />
       <strong>{goal.title}</strong>
       <span style={{ color: "#777", fontSize: "0.9rem" }}>
         Created at: {new Date(goal.dateCreated).toLocaleString()}
@@ -49,7 +55,7 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
         ></SmartLink>
       </span>
       <BiTrash
-        onClick={handleTrashClick}
+        onClick={() => setShowDeletionDialog(true)}
         className={CardStyles.deleteIcon}
         size={21}
       />
