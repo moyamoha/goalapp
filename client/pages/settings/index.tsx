@@ -9,11 +9,12 @@ import FormStrField from "@components/_shared/form-fields/FormStrField";
 import Layout from "@components/Layout";
 import DeleteAccountDialog from "@components/DeleteAccountDialog";
 import BackBtn from "@components/BackBtn";
-import { updateUser } from "@state/thunks/auth.thunk";
+import { deleteAccount, updateUser } from "@state/thunks/auth.thunk";
 import ErrorAlert from "@components/ErrorAlert";
 
 import authStyles from "@styles/AuthLayout.module.css";
 import globalStyles from "@styles/Globals.module.css";
+import ConfirmDeletionDialog from "@components/_shared/ConfirmDeletionDialog";
 
 export default function Settings() {
   const dispatch = useAppDispatch();
@@ -37,12 +38,19 @@ export default function Settings() {
       })
     );
   };
+
+  const handleDeleteAccount = () => {
+    dispatch(deleteAccount());
+  };
+
   return (
     <Layout>
-      <DeleteAccountDialog
+      <ConfirmDeletionDialog
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-      ></DeleteAccountDialog>
+        onDelete={handleDeleteAccount}
+        identifier="your account"
+      />
       <form className={authStyles.authForm} onSubmit={handleSubmit}>
         <FormStrField
           id="email"

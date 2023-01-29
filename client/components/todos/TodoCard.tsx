@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ITodoDoc, TodoStatus } from "@state/types";
 
@@ -7,12 +7,26 @@ import { BiTrash } from "react-icons/bi";
 import SmartLink from "@components/SmartLink";
 import { getTodoStatusColor } from "./todoColor";
 import { getDateFieldValue, isValidStr } from "utils";
+import { useAppDispatch } from "@state/hooks";
+import { deleteTodo } from "@state/thunks/todo.thunk";
+import ConfirmDeletionDialog from "@components/_shared/ConfirmDeletionDialog";
 
 export default function TodoCard({ todo }: { todo: ITodoDoc }) {
-  const handleClickTrash = () => {};
+  const dispatch = useAppDispatch();
+  const [showDeletionDialog, setShowDeletionDialog] = useState(false);
+
+  const handleDelete = () => {
+    dispatch(deleteTodo(todo._id));
+  };
 
   return (
     <div className={CardStyles.card}>
+      <ConfirmDeletionDialog
+        showDialog={showDeletionDialog}
+        setShowDialog={setShowDeletionDialog}
+        onDelete={handleDelete}
+        identifier={`"${todo.title}"`}
+      />
       <strong>{todo.title}</strong>
       <span style={{ color: "#777", fontSize: "0.9rem" }}>
         Created at: {new Date(todo.dateCreated).toLocaleString()}
@@ -39,7 +53,7 @@ export default function TodoCard({ todo }: { todo: ITodoDoc }) {
         ></SmartLink>
       </span>
       <BiTrash
-        onClick={handleClickTrash}
+        onClick={() => setShowDeletionDialog(true)}
         className={CardStyles.deleteIcon}
         size={21}
       />
