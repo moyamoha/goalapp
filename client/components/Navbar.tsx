@@ -25,6 +25,12 @@ function Navbar() {
         text="Home"
       ></SmartLink>
       <SmartLink
+        href="/todos"
+        className={navStyles.navlink}
+        fallback="/"
+        text="Todos"
+      ></SmartLink>
+      <SmartLink
         href="/create"
         className={navStyles.navlink}
         fallback="/login"
