@@ -7,14 +7,16 @@ import {
 } from "@state/hooks";
 import FormStrField from "@components/_shared/form-fields/FormStrField";
 import Layout from "@components/Layout";
-import DeleteAccountDialog from "@components/DeleteAccountDialog";
-import BackBtn from "@components/BackBtn";
+import BackBtn from "@components/_shared/BackBtn";
 import { deleteAccount, updateUser } from "@state/thunks/auth.thunk";
 import ErrorAlert from "@components/ErrorAlert";
 
 import authStyles from "@styles/AuthLayout.module.css";
 import globalStyles from "@styles/Globals.module.css";
 import ConfirmDeletionDialog from "@components/_shared/ConfirmDeletionDialog";
+
+const confirmAccountDeleteMessage =
+  "Do you really want to delete your account? All your data will be erased permanentally!!";
 
 export default function Settings() {
   const dispatch = useAppDispatch();
@@ -49,7 +51,7 @@ export default function Settings() {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         onDelete={handleDeleteAccount}
-        identifier="your account"
+        msg={confirmAccountDeleteMessage}
       />
       <form className={authStyles.authForm} onSubmit={handleSubmit}>
         <FormStrField

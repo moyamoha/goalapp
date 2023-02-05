@@ -8,14 +8,14 @@ type ConfirmDeletionDialogPropsType = {
   showDialog: boolean;
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
   onDelete: () => void;
-  identifier: string;
+  msg: string;
 };
 
 export default function ConfirmDeletionDialog({
   showDialog,
   setShowDialog,
   onDelete,
-  identifier,
+  msg,
 }: ConfirmDeletionDialogPropsType) {
   const handleConfirmDelete = () => {
     onDelete();
@@ -30,19 +30,16 @@ export default function ConfirmDeletionDialog({
         className={settingsStyle.closeIcon}
         onClick={handleCancel}
       ></AiOutlineClose>
-      <p>
-        You are about to delete {identifier}, action is reversible, are your
-        sure?
-      </p>
+      <p>{msg}</p>
       <div style={{ display: "flex", gap: "15px" }}>
         <button
           className={globalStyles.dangerBtn}
           onClick={handleConfirmDelete}
         >
-          ! Delete it anyway !
+          Yes, delete
         </button>
         <button className={globalStyles.primaryBtn} onClick={handleCancel}>
-          No, I will keep it
+          Cancel
         </button>
       </div>
     </dialog>

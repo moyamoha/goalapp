@@ -1,6 +1,6 @@
 import React from "react";
 
-import BackBtn from "@components/BackBtn";
+import BackBtn from "@components/_shared/BackBtn";
 import GoalForm from "@components/goals/forms/GoalForm";
 import Layout from "@components/Layout";
 import { useRedirectIfUnauthorized } from "@state/hooks";

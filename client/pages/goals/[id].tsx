@@ -5,7 +5,7 @@ import Layout from "@components/Layout";
 import GoalForm from "@components/goals/forms/GoalForm";
 import { useAppSelector, useRedirectIfUnauthorized } from "@state/hooks";
 import { IGoalDoc } from "@state/types";
-import BackBtn from "@components/BackBtn";
+import BackBtn from "@components/_shared/BackBtn";
 
 export default function Goal() {
   useRedirectIfUnauthorized();

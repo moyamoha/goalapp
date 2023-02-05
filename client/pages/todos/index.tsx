@@ -28,7 +28,9 @@ export default function Todos() {
             ))}
           </>
         ) : (
-          <span>No todos</span>
+          <div>
+            <span>No todos</span>
+          </div>
         )}
       </div>
     </Layout>
