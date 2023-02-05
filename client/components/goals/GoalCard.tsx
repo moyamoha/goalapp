@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 
 import { useAppDispatch } from "@state/hooks";
@@ -19,16 +19,16 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
     dispatch(deleteGoal(goal._id));
   };
 
-  const getDeleteGoalConfirmationMsg = () => {
+  const deleteGoalConfirmationMsg = useMemo(() => {
     return `Do you really want to delete the goal "${goal.title}"`;
-  };
+  }, [goal]);
 
   return (
     <div className={CardStyles.card}>
       <ConfirmDeletionDialog
         showDialog={showDeletionDialog}
         setShowDialog={setShowDeletionDialog}
-        msg={getDeleteGoalConfirmationMsg()}
+        msg={deleteGoalConfirmationMsg}
         onDelete={handleDelete}
       />
       <strong>{goal.title}</strong>

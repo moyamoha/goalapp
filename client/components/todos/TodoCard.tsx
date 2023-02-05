@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { ITodoDoc, TodoStatus } from "@state/types";
 
@@ -19,13 +19,17 @@ export default function TodoCard({ todo }: { todo: ITodoDoc }) {
     dispatch(deleteTodo(todo._id));
   };
 
+  const deleteTodoConfirmationMsg = useMemo(() => {
+    return `Do you really want to delete the todo "${todo.title}"?`;
+  }, [todo]);
+
   return (
     <div className={CardStyles.card}>
       <ConfirmDeletionDialog
         showDialog={showDeletionDialog}
         setShowDialog={setShowDeletionDialog}
         onDelete={handleDelete}
-        identifier={`"${todo.title}"`}
+        msg={deleteTodoConfirmationMsg}
       />
       <strong>{todo.title}</strong>
       <span style={{ color: "#777", fontSize: "0.9rem" }}>
