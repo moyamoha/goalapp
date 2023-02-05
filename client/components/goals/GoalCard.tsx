@@ -19,12 +19,16 @@ export default function GoalCard({ goal }: { goal: IGoalDoc }) {
     dispatch(deleteGoal(goal._id));
   };
 
+  const getDeleteGoalConfirmationMsg = () => {
+    return `Do you really want to delete the goal "${goal.title}"`;
+  };
+
   return (
     <div className={CardStyles.card}>
       <ConfirmDeletionDialog
         showDialog={showDeletionDialog}
         setShowDialog={setShowDeletionDialog}
-        identifier={`"${goal.title}"`}
+        msg={getDeleteGoalConfirmationMsg()}
         onDelete={handleDelete}
       />
       <strong>{goal.title}</strong>
