@@ -5,17 +5,23 @@ import {
   useAppSelector,
   useRedirectIfUnauthorized,
 } from "@state/hooks";
-import { getAll } from "@state/thunks/todo.thunk";
+import { getAll, getTodosOfAGoal } from "@state/thunks/todo.thunk";
 import TodoCard from "@components/todos/TodoCard";
 import Layout from "@components/Layout";
+import { useRouter } from "next/router";
 
 export default function Todos() {
   useRedirectIfUnauthorized();
   const dispatch = useAppDispatch();
   const todos = useAppSelector((s) => s.todos.todos);
+  const { query } = useRouter();
   useEffect(() => {
-    dispatch(getAll());
-  }, [dispatch]);
+    if (query && query.goalId) {
+      dispatch(getTodosOfAGoal(query.goalId as string));
+    } else {
+      dispatch(getAll());
+    }
+  }, [query, dispatch]);
 
   return (
     <Layout>
