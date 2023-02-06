@@ -25,7 +25,7 @@ export default function Todos() {
 
   return (
     <Layout>
-      <h2>All your todos</h2>
+      <h2></h2>
       <div style={{ width: "60%", padding: "10px" }}>
         {todos.length > 0 ? (
           <>
