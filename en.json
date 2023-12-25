@@ -1,0 +1,42 @@
+{
+  "en": {
+    "totem": {
+      "General.start_trial_url_slug": "aloitakokeilujakso",
+      "Url.all_content": "all-content",
+      "Url.all_packages": "all-packages",
+      "Url.already_logged_in": "already-logged-in",
+      "Url.change": "change",
+      "Url.change_password": "change-password",
+      "Url.completed": "completed",
+      "Url.content_expired": "content-expired",
+      "Url.course_collection": "course-collection",
+      "Url.courses": "courses",
+      "Url.currently_unavailable": "currently-unavailable",
+      "Url.free_subscriptions_form": "free_subscriptions_form",
+      "Url.incomplete_courses": "incomplete-courses",
+      "Url.learning_path": "learning-paths",
+      "Url.live_events": "live-events",
+      "Url.login": "login",
+      "Url.new_password": "new-password",
+      "Url.no_access": "no-access",
+      "Url.notes": "notes",
+      "Url.organization_licence": "organization-licence",
+      "Url.organization_report": "organization-report",
+      "Url.page_disabled": "page-disabled",
+      "Url.page_not_found": "page-not-found",
+      "Url.restricted": "restricted",
+      "Url.service": "service",
+      "Url.signups": "Sign-ups",
+      "Url.something_went_wrong": "something-went-wrong",
+      "Url.sso_join": "additional-info",
+      "Url.study_plans": "study-plans",
+      "Url.summary": "summary",
+      "Url.trial_form": "trial-form",
+      "Url.under_maintenance": "under-maintenance",
+      "Url.upcoming": "upcoming",
+      "Url.user_order_info": "user-order-info",
+      "Url.user_profile": "user-profile",
+      "Url.virtual_classrooms": "digital-classrooms"
+    }
+  }
+}

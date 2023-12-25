@@ -1,0 +1,42 @@
+{
+  "fi": {
+    "totem": {
+      "General.start_trial_url_slug": "aloitakokeilujakso",
+      "Url.all_content": "kaikki-sisalto",
+      "Url.all_packages": "kaikki-koulutusaiheet",
+      "Url.already_logged_in": "jo-kirjautunut",
+      "Url.change": "muuta",
+      "Url.change_password": "vaihdasalasana",
+      "Url.completed": "suoritetut",
+      "Url.content_expired": "content-expired",
+      "Url.course_collection": "koulutuskokonaisuudet",
+      "Url.courses": "koulutukset",
+      "Url.currently_unavailable": "currently-unavailable",
+      "Url.free_subscriptions_form": "rekisteroidy",
+      "Url.incomplete_courses": "keskeneraiset",
+      "Url.learning_path": "learning-paths",
+      "Url.live_events": "livelahetykset",
+      "Url.login": "kirjaudu",
+      "Url.new_password": "uusisalasana",
+      "Url.no_access": "ei-oikeutta",
+      "Url.notes": "muistiinpanot",
+      "Url.organization_licence": "organisaatiolisenssi",
+      "Url.organization_report": "organisaatioraportti",
+      "Url.page_disabled": "placeholder",
+      "Url.page_not_found": "sivua-ei-loytynyt",
+      "Url.restricted": "rajoitettu",
+      "Url.service": "palvelu",
+      "Url.signups": "Ilmoittautumiset",
+      "Url.something_went_wrong": "something-went-wrong",
+      "Url.sso_join": "lisatiedot",
+      "Url.study_plans": "opintosuunnitelmat",
+      "Url.summary": "yhteenveto",
+      "Url.trial_form": "kokeilujakso",
+      "Url.under_maintenance": "under-maintenance",
+      "Url.upcoming": "tulossa",
+      "Url.user_order_info": "tilaustiedot",
+      "Url.user_profile": "kayttajatiedot",
+      "Url.virtual_classrooms": "etakoulutukset"
+    }
+  }
+}
