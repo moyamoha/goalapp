@@ -18,7 +18,6 @@ export class TodoService {
     const todos = goalId
       ? await this.todoModel.find({ owner: user._id, goalId: goalId })
       : await this.todoModel.find({ owner: user._id });
-    console.log(todos);
     return todos;
   }
 

@@ -36,7 +36,6 @@ export const login = (credintials: { email: string; password: string }) => {
 };
 
 export const registerUser = (userData: UserReqData) => {
-  console.log(userData);
   return async (dispatch: AppDispatch, getState: () => IStore) => {
     try {
       await axios.post("/users", userData);
